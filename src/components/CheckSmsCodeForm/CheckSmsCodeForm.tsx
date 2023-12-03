@@ -1,37 +1,53 @@
 import { Button, Container, Flex, Paper, Text, TextInput } from '@mantine/core';
-import type { ChangeEvent, FC } from 'react';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
-import { getCaptcha } from '../../redux/selectors';
-import { setVerificationId } from '../../redux/slices/userSlice';
-import { useAppDispatch, useAppSelector } from '../../redux/store';
+import { auth } from '@/firebase';
+import { getCaptcha, getUsersState } from '@/redux/selectors';
+import { getUser } from '@/redux/slices/userSliceFirestore';
+import { useAppDispatch, useAppSelector } from '@/redux/store';
+import { NavigateTo } from '@/routes';
+import type { ChangeEvent, FC } from '@/types';
+
 import classes from './CheckSmsCodeForm.module.css';
 
 const CheckSmsCodeForm: FC = () => {
-  const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const fetchCapthca = useAppSelector(getCaptcha);
-
   const [codeSms, setCode] = useState('');
+  const usersFetch = useAppSelector(getUsersState);
+
   const getSmsCode = (event: ChangeEvent<HTMLInputElement>): void => {
     event.preventDefault();
     setCode(event.currentTarget.value);
   };
-
-  const handlerVerifyCode = useCallback(() => {
-    dispatch(setVerificationId(fetchCapthca.verificationId));
-    fetchCapthca.confirm(codeSms);
-    navigate('/auth');
+  useEffect(() => {
+    dispatch(getUser());
   }, [codeSms]);
 
+  const handlerVerifyCode = useCallback(async () => {
+    await fetchCapthca.confirm(codeSms);
+    const currentUserUid = auth.currentUser?.uid;
+    const currentUser = usersFetch.filter((user) => user.uid === currentUserUid);
+    if (currentUser.length == 0) {
+      navigate(NavigateTo.SetNickname);
+    }
+    const [{ displayName }] = currentUser;
+
+    if (currentUser.length > 0 && displayName) {
+      navigate(NavigateTo.SuccesAuth);
+    } else {
+      navigate(NavigateTo.SuccesAuth);
+    }
+  }, [usersFetch]);
   const { t } = useTranslation();
   return (
     <Container size={460} my={30} ta="center" mt={250}>
       <Paper withBorder shadow="md" p={30} radius="md" mt="xl">
         <Text>{t('enterCode')}</Text>
-        <TextInput required ta="left" onChange={getSmsCode} />
+        <TextInput required ta="left" onChange={getSmsCode} value={codeSms} />
         <Flex mih={50} gap="sm" justify="center" align="center" direction="column" wrap="wrap">
           <Button
             className={classes.control}

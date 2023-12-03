@@ -1,15 +1,17 @@
 import '@mantine/core/styles.css';
 
 import { Button, Container, Flex, Image, Paper, Text, TextInput } from '@mantine/core';
-import type { ChangeEvent, FC } from 'react';
 import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
+import { signIn } from '@/redux/slices/authSlice';
+import { setPhoneNumber } from '@/redux/slices/userSlice';
+import { useAppDispatch } from '@/redux/store';
+import { NavigateTo } from '@/routes';
+import type { ChangeEvent, FC } from '@/types';
+
 import iconSteam from '../../../public/steam.svg';
-import { signIn } from '../../redux/slices/authSlice';
-import { setPhoneNumber } from '../../redux/slices/userSlice';
-import { useAppDispatch } from '../../redux/store';
 import classes from './LoginForm.module.css';
 
 const LoginForm: FC = () => {
@@ -25,7 +27,7 @@ const LoginForm: FC = () => {
   const handlerAuth = useCallback(async () => {
     dispatch(setPhoneNumber(phoneNumber));
     await dispatch(signIn(phoneNumber));
-    navigate('/sendSms');
+    navigate(NavigateTo.SendSms);
   }, [phoneNumber]);
 
   const { t } = useTranslation();
@@ -39,6 +41,7 @@ const LoginForm: FC = () => {
           required
           ta="left"
           onChange={getPhoneNumberFromUserInput}
+          value={phoneNumber}
         />
         <Flex mih={50} gap="sm" justify="center" align="center" direction="column" wrap="wrap">
           <Button

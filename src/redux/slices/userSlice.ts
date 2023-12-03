@@ -1,15 +1,12 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
-
-type User = {
-  phoneNumber: string;
-  verificationId: string;
-};
+import type { UserInfo } from 'firebase/auth';
 
 const initialState = {
-  phoneNumber: '',
-  verificationId: ''
-} as User;
+  phoneNumber: null,
+  uid: '',
+  displayName: null
+} as UserInfo;
 
 const userSlice = createSlice({
   name: 'search',
@@ -20,10 +17,15 @@ const userSlice = createSlice({
     },
 
     setVerificationId(state, action: PayloadAction<string>) {
-      state.verificationId = action.payload;
+      state.uid = action.payload;
+    },
+
+    setDisplayName(state, action: PayloadAction<string>) {
+      state.displayName = action.payload;
     }
   }
 });
-export const { setPhoneNumber, setVerificationId } = userSlice.actions;
+
+export const { setPhoneNumber, setVerificationId, setDisplayName } = userSlice.actions;
 
 export default userSlice.reducer;

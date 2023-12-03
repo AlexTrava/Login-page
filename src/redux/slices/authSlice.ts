@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import type { ConfirmationResult } from 'firebase/auth';
 import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 
-import { auth } from '../../firebase';
+import { auth } from '@/firebase';
+import type { ConfirmationResult } from '@/types';
 
 export enum Status {
   LOADING = 'loading',

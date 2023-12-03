@@ -1,14 +1,15 @@
 import { configureStore } from '@reduxjs/toolkit';
+import authSlice from '@store/slices/authSlice';
+import userSlice from '@store/slices/userSlice';
+import userSliceFirestore from '@store/slices/userSliceFirestore';
 import type { TypedUseSelectorHook } from 'react-redux';
 import { useDispatch, useSelector } from 'react-redux';
-
-import authSlice from './slices/authSlice';
-import userSlice from './slices/userSlice';
 
 export const store = configureStore({
   reducer: {
     authSlice: authSlice,
-    userSlcie: userSlice
+    userSlcie: userSlice,
+    userSliceFirestore: userSliceFirestore
   }
 });
 

@@ -1,16 +1,18 @@
 import '@mantine/core/styles.css';
 
 import { AppShell, Flex, Image } from '@mantine/core';
-import type { FC } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
+import CheckSmsCodeForm from '@/components/CheckSmsCodeForm/CheckSmsCodeForm';
+import InputLanguage from '@/components/InputLanguage/InputLanguage';
+import LoginForm from '@/components/LoginForm/LoginForm';
+import LogoutButton from '@/components/LogoutButton/LogoutButton';
+import NickNameForm from '@/components/NickNameForm/NickNameForm';
+import SuccessCheckCode from '@/components/SuccessCheckCode/SuccessCheckCode';
+import SwitchTheme from '@/components/SwitchTheme/SwitchTheme';
+import type { FC } from '@/types';
+
 import logo from '../../public/logo.svg';
-import CheckSmsCodeForm from '../components/CheckSmsCodeForm/CheckSmsCodeForm';
-import InputLanguage from '../components/InputLanguage/InputLanguage';
-import LoginForm from '../components/LoginForm/LoginForm';
-import LogoutButton from '../components/LogoutButton/LogoutButton';
-import SuccessCheckCode from '../components/SuccessCheckCode/SuccessCheckCode';
-import SwitchTheme from '../components/SwitchTheme/SwitchTheme';
 
 const MainPage: FC = () => {
   return (
@@ -44,6 +46,7 @@ const MainPage: FC = () => {
           <Route path="/" element={<LoginForm />} />
           <Route path="/sendSms" element={<CheckSmsCodeForm />} />
           <Route path="/auth" element={<SuccessCheckCode />} />
+          <Route path="/nick" element={<NickNameForm />} />
         </Routes>
       </AppShell.Main>
     </AppShell>
