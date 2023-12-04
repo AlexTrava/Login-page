@@ -1,12 +1,6 @@
-import Header from "./components/Header/Header";
-import LeftBar from "./components/LoginForm/LoginForm";
+import MainPage from './pages/MainPage';
 function App() {
-  return (
-    <>
-    <Header/>
-    <LeftBar />
-    </>
-  );
+  return <MainPage />;
 }
 
 export default App;

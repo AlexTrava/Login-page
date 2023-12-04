@@ -1,46 +1,28 @@
-import { useState } from 'react';
-import { Container, Group, Burger } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
 import '@mantine/core/styles.css';
-import classes from './Header.module.css';
 
-const links = [
-  { link: '/about', label: 'Features' },
-  { link: '/pricing', label: 'Pricing' },
-  { link: '/learn', label: 'Learn' },
-  { link: '/community', label: 'Community' },
-];
+import { AppShell, Flex } from '@mantine/core';
 
-const  Header = () => {
-  const [opened, { toggle }] = useDisclosure(false);
-  const [active, setActive] = useState(links[0].link);
+import InputLanguage from '../InputLanguage/InputLanguage';
+import SwitchTheme from '../SwitchTheme/SwitchTheme';
 
-  const items = links.map((link) => (
-    <a
-      key={link.label}
-      href={link.link}
-      className={classes.link}
-      data-active={active === link.link || undefined}
-      onClick={(event) => {
-        event.preventDefault();
-        setActive(link.link);
-      }}
-    >
-      {link.label}
-    </a>
-  ));
-
+const Header = () => {
   return (
-    <header className={classes.header}>
-      <Container size="md" className={classes.inner}>
-        <Group gap={5} visibleFrom="xs">
-          {items}
-        </Group>
-
-        <Burger opened={opened} onClick={toggle} hiddenFrom="xs" size="sm" />
-      </Container>
-    </header>
+    <AppShell
+      header={{ height: 60 }}
+      navbar={{
+        width: 100,
+        breakpoint: 'sm'
+      }}
+      padding="md">
+      <AppShell.Header>
+        <Flex mih={50} gap="md" justify="flex-end" align="baseline" direction="row" wrap="wrap">
+          <InputLanguage />
+          <SwitchTheme />
+        </Flex>
+      </AppShell.Header>
+      <AppShell.Navbar p="md">Navbar</AppShell.Navbar>
+    </AppShell>
   );
-}
+};
 
 export default Header;
