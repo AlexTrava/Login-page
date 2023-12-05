@@ -5,7 +5,7 @@ import { Button, Container, Flex, Image, Paper, Text, TextInput } from '@mantine
 import iconSteam from '../../../public/steam.svg';
 import classes from './LoginForm.module.css';
 
-export function LoginForm() {
+const  LoginForm:React.FC = () => {
   return (
     <Container size={460} my={30} ta="center" mt={250}>
       <Paper withBorder shadow="md" p={30} radius="md" mt="xl">

@@ -4,7 +4,7 @@ import { rem, Switch, useMantineColorScheme, useMantineTheme } from '@mantine/co
 import { IconMoonStars, IconSun } from '@tabler/icons-react';
 import { useState } from 'react';
 
-const SwitchTheme = () => {
+const SwitchTheme:React.FC = () => {
   const [checked, setChecked] = useState(false);
   const { setColorScheme } = useMantineColorScheme();
   const theme = useMantineTheme();
