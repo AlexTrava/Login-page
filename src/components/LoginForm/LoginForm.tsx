@@ -1,7 +1,7 @@
 import '@mantine/core/styles.css';
 
 import { Button, Container, Flex, Image, Paper, Text, TextInput } from '@mantine/core';
-import { useTranslation } from "react-i18next";
+import { useTranslation } from 'react-i18next';
 
 import iconSteam from '../../../public/steam.svg';
 import classes from './LoginForm.module.css';

@@ -9,11 +9,10 @@ const InputLanguage = () => {
   const { i18n } = useTranslation();
 
   const handleLangSwitch = (event) => {
-    setValue(event.currentTarget.value)
+    setValue(event.currentTarget.value);
     const lang = event.currentTarget.value.toLowerCase();
     i18n.changeLanguage(lang);
-  }
-
+  };
 
   return (
     <NativeSelect
