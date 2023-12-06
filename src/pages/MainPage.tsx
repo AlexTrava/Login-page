@@ -1,5 +1,4 @@
 import '@mantine/core/styles.css';
-import '../i18n';
 
 import { AppShell, Flex, Image } from '@mantine/core';
 

@@ -1,8 +1,10 @@
 import i18next from 'i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
-import { initReactI18next } from 'react-i18next';
+import { initReactI18next} from "react-i18next"
 
-export const defaultNS = 'en';
+import en from './locales/en/en.json';
+import ru from './locales/ru/ru.json';
+
 
 i18next
   .use(initReactI18next)
@@ -13,7 +15,14 @@ i18next
     interpolation: {
       escapeValue: false
     },
-    defaultNS
+    resources: {
+      en: {
+        translation: en,
+      },
+      ru: {
+        translation: ru,
+      },
+    }
   });
 
 export default i18next;
