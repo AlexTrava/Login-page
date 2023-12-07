@@ -1,21 +1,16 @@
 import '@mantine/core/styles.css';
 
 import { AppShell, Flex, Image } from '@mantine/core';
-import { useState } from 'react';
 
-
+// import { useState } from 'react';
 import logo from '../../public/logo.svg';
+import CheckSmsCodeForm from '../components/CheckSmsCodeForm/CheckSmsCodeForm';
 import InputLanguage from '../components/InputLanguage/InputLanguage';
 import LoginForm from '../components/LoginForm/LoginForm';
 import LogoutButton from '../components/LogoutButton/LogoutButton';
 import SwitchTheme from '../components/SwitchTheme/SwitchTheme';
-import CheckSmsCodeForm from '../components/CheckSmsCodeForm/CheckSmsCodeForm';
-
-
 
 const MainPage: React.FC = () => {
-  const [isCheckedCode, setCheckCode] = useState<boolean>(true);
-
   return (
     <AppShell
       header={{ height: 60 }}
