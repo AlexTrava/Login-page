@@ -3,5 +3,7 @@
     "yourPhone": "Ваш телефон",
     "enterPhone":"Введите ваш телефон",
     "sendSms":"Отправить СМС с кодом",
-    "signSteam": "Войти через Steam"
+    "signSteam": "Войти через Steam",
+    "send":"Отправить",
+    "enterCode": "Введите код"
 }
