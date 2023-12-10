@@ -2,7 +2,7 @@ import '@mantine/core/styles.css';
 
 import { Button, Container, Flex, Image, Paper, Text, TextInput } from '@mantine/core';
 import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import iconSteam from '../../../public/steam.svg';
@@ -10,29 +10,69 @@ import { auth } from '../../firebase';
 import classes from './LoginForm.module.css';
 
 const LoginForm: React.FC = () => {
-  const [numberPhone, setNumberPhone] = useState('');
+  const [phoneNumber, setNumberPhone] = useState('');
 
   const getPhoneNumberFromUserInput = (event) => {
-    setNumberPhone(event.currentTarget.value);
     console.log(event.currentTarget.value);
+    setNumberPhone(event.currentTarget.value);
   };
 
-  const setupRecaptcha = (phoneNumber: string) => {
-    const recaptcha = new RecaptchaVerifier(auth, 'sign-in-button', {
-      size: 'invisible'
+  useEffect(() => {
+    window.recaptchaVerifier = new RecaptchaVerifier(auth, 'sign-in-button', {
+      size: 'invisible',
+      callback: () => {
+        // reCAPTCHA прошла проверку, отправляем SMS
+        handleSendCode();
+      }
     });
+  }, []);
 
-    return signInWithPhoneNumber(auth, phoneNumber, recaptcha);
-  };
-
-  const sendSmsCode = async () => {
-    try {
-      const confirmObj = await setupRecaptcha(numberPhone);
-      console.log(confirmObj, 'its confirm');
-    } catch (e) {
-      console.log(e, 'error catch');
+  const handleSendCode = () => {
+    const appVerifier = window.recaptchaVerifier;
+    const formattedPhoneNumber = phoneNumber.trim();
+    console.log(phoneNumber, 'its 2 number');
+    if (!formattedPhoneNumber.startsWith('+')) {
+      console.error('Пожалуйста, укажите номер телефона в международном формате.');
+      return;
     }
+    signInWithPhoneNumber(auth, phoneNumber, appVerifier)
+      .then((confirmationResult) => {
+        window.confirmationResult = confirmationResult;
+      })
+      .catch((error) => {
+        console.log('Ошибка при отправке SMS: ', error);
+      });
   };
+
+  // const handleVerifyCode = () => {
+  //   const codeInput = code;
+  //   window.confirmationResult
+  //     .confirm(codeInput)
+  //     .then((result) => {
+  //       // Пользователь аутентифицирован
+  //       console.log('Пользователь успешно аутентифицирован', result.user);
+  //     })
+  //     .catch((error) => {
+  //       console.log('Ошибка при вводе кода из SMS: ', error);
+  //     });
+  // };
+
+  // const setupRecaptcha = (phoneNumber: string) => {
+  //   const recaptcha = new RecaptchaVerifier(auth, 'sign-in-button', {
+  //     size: 'invisible'
+  //   });
+
+  //   return signInWithPhoneNumber(auth, phoneNumber, recaptcha);
+  // };
+
+  // const sendSmsCode = async () => {
+  //   try {
+  //     const confirmObj = await setupRecaptcha(numberPhone);
+  //     console.log(confirmObj, 'its confirm');
+  //   } catch (e) {
+  //     console.log(e, 'error catch');
+  //   }
+  // };
 
   // const onCaptchVerify = async (phone) => {
   //   const recaptchaVerifier = new RecaptchaVerifier(auth, 'sign-in-button', {
@@ -83,7 +123,7 @@ const LoginForm: React.FC = () => {
             mt={30}
             radius="lg"
             id="sign-in-button"
-            onClick={sendSmsCode}>
+            onClick={handleSendCode}>
             {t('sendSms')}
           </Button>
           <Button
