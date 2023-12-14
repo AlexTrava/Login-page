@@ -25,7 +25,6 @@ const userSlice = createSlice({
     }
   }
 });
-
 export const { setPhoneNumber, setVerificationId } = userSlice.actions;
 
 export default userSlice.reducer;
