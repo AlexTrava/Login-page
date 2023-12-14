@@ -1,7 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { RootState } from '../store';
-
 type User = {
   phoneNumber: string;
   verificationId: string;
@@ -16,11 +14,11 @@ const userSlice = createSlice({
   name: 'search',
   initialState,
   reducers: {
-    setPhoneNumber(state: RootState, action: PayloadAction) {
+    setPhoneNumber(state, action: PayloadAction<string>) {
       state.phoneNumber = action.payload;
     },
 
-    setVerificationId(state: RootState, action: PayloadAction) {
+    setVerificationId(state, action: PayloadAction<string>) {
       state.verificationId = action.payload;
     }
   }

@@ -13,7 +13,7 @@ const CheckSmsCodeForm: React.FC = () => {
   const fetchCapthca = useAppSelector((state) => state.authSlice.captchaFetch);
 
   const [codeSms, setCode] = useState();
-  const getSmsCode = (event) => {
+  const getSmsCode = (event: any) => {
     event.preventDefault();
     setCode(event.currentTarget.value);
   };

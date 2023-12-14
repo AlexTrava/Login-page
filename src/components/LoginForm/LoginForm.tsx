@@ -16,7 +16,7 @@ const LoginForm: React.FC = () => {
   const navigate = useNavigate();
   const [phoneNumber, setNumberPhone] = useState('');
 
-  const getPhoneNumberFromUserInput = (event) => {
+  const getPhoneNumberFromUserInput = (event: any) => {
     event.preventDefault();
     console.log(event.currentTarget.value);
     setNumberPhone(event.currentTarget.value);
