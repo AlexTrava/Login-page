@@ -3,10 +3,12 @@ import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
-import { useAppSelector } from '../../redux/store';
+import { setVerificationId } from '../../redux/slices/userSlice';
+import { useAppDispatch, useAppSelector } from '../../redux/store';
 import classes from './CheckSmsCodeForm.module.css';
 
 const CheckSmsCodeForm: React.FC = () => {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const fetchCapthca = useAppSelector((state) => state.authSlice.captchaFetch);
 
@@ -17,6 +19,7 @@ const CheckSmsCodeForm: React.FC = () => {
   };
 
   const handlerVerifyCode = useCallback(() => {
+    dispatch(setVerificationId(fetchCapthca.verificationId));
     fetchCapthca.confirm(codeSms);
     navigate('/auth');
   }, [codeSms]);

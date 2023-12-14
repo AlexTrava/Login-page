@@ -1,6 +1,6 @@
 import { ActionIcon, Image } from '@mantine/core';
 import { signOut } from 'firebase/auth';
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import logout from '../../../public/logout.svg';
