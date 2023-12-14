@@ -4,6 +4,7 @@ import { Button, Container, Flex, Image, Paper, Text, TextInput } from '@mantine
 // import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 import iconSteam from '../../../public/steam.svg';
 import { signIn } from '../../redux/slices/authSlice';
@@ -13,6 +14,7 @@ import classes from './LoginForm.module.css';
 
 const LoginForm: React.FC = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const [phoneNumber, setNumberPhone] = useState('');
 
   const getPhoneNumberFromUserInput = (event) => {
@@ -23,6 +25,7 @@ const LoginForm: React.FC = () => {
 
   const handlerAuth = useCallback(async () => {
     await dispatch(signIn(phoneNumber));
+    navigate('/sendSms');
   }, [phoneNumber]);
 
   // useEffect(() => {

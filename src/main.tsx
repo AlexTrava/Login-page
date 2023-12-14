@@ -8,13 +8,16 @@ import { Provider } from 'react-redux';
 
 import App from './App.tsx';
 import { store } from './redux/store.ts';
+import { BrowserRouter } from 'react-router-dom';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <Provider store={store}>
     <React.StrictMode>
-      <MantineProvider defaultColorScheme="dark">
-        <App />
-      </MantineProvider>
+      <BrowserRouter>
+        <MantineProvider defaultColorScheme="dark">
+          <App />
+        </MantineProvider>
+      </BrowserRouter>
     </React.StrictMode>
   </Provider>
 );
