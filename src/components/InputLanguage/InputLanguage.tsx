@@ -5,15 +5,14 @@ import { useTranslation } from 'react-i18next';
 import language from '../../../public/language.svg';
 
 const InputLanguage = () => {
-  const [value, setValue] = useState();
+  const [value, setValue] = useState<string>();
   const { i18n } = useTranslation();
 
   const handleLangSwitch = (event) => {
-    setValue(event.currentTarget.value)
+    setValue(event.currentTarget.value);
     const lang = event.currentTarget.value.toLowerCase();
     i18n.changeLanguage(lang);
-  }
-
+  };
 
   return (
     <NativeSelect
