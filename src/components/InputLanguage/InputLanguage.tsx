@@ -1,19 +1,26 @@
-import { NativeSelect, Image } from '@mantine/core';
-import language from '../../../public/language.svg';
+import { Image, NativeSelect } from '@mantine/core';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
+import language from '../../../public/language.svg';
 
 const InputLanguage = () => {
+  const [value, setValue] = useState();
+  const { i18n } = useTranslation();
 
-  const [value, setValue] = useState('');
-  console.log(value, 'its state')
+  const handleLangSwitch = (event) => {
+    setValue(event.currentTarget.value)
+    const lang = event.currentTarget.value.toLowerCase();
+    i18n.changeLanguage(lang);
+  }
+
 
   return (
     <NativeSelect
       value={value}
-      onChange={(event) => setValue(event.currentTarget.value)}
-      data={['RU', 'EN']}
-      mt="md" 
+      onChange={handleLangSwitch}
+      data={['EN', 'RU']}
+      mt="md"
       leftSection={<Image h={20} w={20} src={language} />}
     />
   );
