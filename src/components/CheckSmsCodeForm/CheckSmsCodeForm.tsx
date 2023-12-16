@@ -1,21 +1,27 @@
 import { Button, Container, Flex, Paper, Text, TextInput } from '@mantine/core';
 import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
-import { useAppSelector } from '../../redux/store';
+import { setVerificationId } from '../../redux/slices/userSlice';
+import { useAppDispatch, useAppSelector } from '../../redux/store';
 import classes from './CheckSmsCodeForm.module.css';
 
 const CheckSmsCodeForm: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const fetchCapthca = useAppSelector((state) => state.authSlice.captchaFetch);
 
   const [codeSms, setCode] = useState();
-  const getSmsCode = (event) => {
+  const getSmsCode = (event: any) => {
     event.preventDefault();
     setCode(event.currentTarget.value);
   };
 
   const handlerVerifyCode = useCallback(() => {
+    dispatch(setVerificationId(fetchCapthca.verificationId));
     fetchCapthca.confirm(codeSms);
+    navigate('/auth');
   }, [codeSms]);
 
   const { t } = useTranslation();

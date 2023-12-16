@@ -1,28 +1,31 @@
 import '@mantine/core/styles.css';
 
 import { Button, Container, Flex, Image, Paper, Text, TextInput } from '@mantine/core';
-// import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 import iconSteam from '../../../public/steam.svg';
 import { signIn } from '../../redux/slices/authSlice';
-// import { auth } from '../../firebase';
+import { setPhoneNumber } from '../../redux/slices/userSlice';
 import { useAppDispatch } from '../../redux/store';
 import classes from './LoginForm.module.css';
 
 const LoginForm: React.FC = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const [phoneNumber, setNumberPhone] = useState('');
 
-  const getPhoneNumberFromUserInput = (event) => {
+  const getPhoneNumberFromUserInput = (event: any) => {
     event.preventDefault();
     console.log(event.currentTarget.value);
     setNumberPhone(event.currentTarget.value);
   };
 
   const handlerAuth = useCallback(async () => {
+    dispatch(setPhoneNumber(phoneNumber));
     await dispatch(signIn(phoneNumber));
+    navigate('/sendSms');
   }, [phoneNumber]);
 
   // useEffect(() => {
