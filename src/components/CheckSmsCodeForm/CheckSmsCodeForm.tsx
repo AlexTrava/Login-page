@@ -3,6 +3,7 @@ import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
+import { getCaptcha } from '../../redux/selectors';
 import { setVerificationId } from '../../redux/slices/userSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import classes from './CheckSmsCodeForm.module.css';
@@ -10,10 +11,11 @@ import classes from './CheckSmsCodeForm.module.css';
 const CheckSmsCodeForm: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const fetchCapthca = useAppSelector((state) => state.authSlice.captchaFetch);
+  const fetchCapthca = useAppSelector(getCaptcha);
+  console.log(fetchCapthca, 'its fetch capthc , checkSms comp');
 
-  const [codeSms, setCode] = useState();
-  const getSmsCode = (event: any) => {
+  const [codeSms, setCode] = useState('');
+  const getSmsCode = (event: React.ChangeEvent<HTMLInputElement>): void => {
     event.preventDefault();
     setCode(event.currentTarget.value);
   };

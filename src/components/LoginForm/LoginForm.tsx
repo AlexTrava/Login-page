@@ -16,7 +16,7 @@ const LoginForm: React.FC = () => {
   const navigate = useNavigate();
   const [phoneNumber, setNumberPhone] = useState('');
 
-  const getPhoneNumberFromUserInput = (event: any) => {
+  const getPhoneNumberFromUserInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
     console.log(event.currentTarget.value);
     setNumberPhone(event.currentTarget.value);
@@ -27,94 +27,6 @@ const LoginForm: React.FC = () => {
     await dispatch(signIn(phoneNumber));
     navigate('/sendSms');
   }, [phoneNumber]);
-
-  // useEffect(() => {
-  //   window.recaptchaVerifier = new RecaptchaVerifier(auth, 'sign-in-button', {
-  //     size: 'invisible',
-  //     callback: () => {
-  //       // reCAPTCHA прошла проверку, отправляем SMS
-  //       handleSendCode();
-  //     }
-  //   });
-  // }, []);
-
-  // const handleSendCode = () => {
-  //   const appVerifier = window.recaptchaVerifier;
-  //   const formattedPhoneNumber = phoneNumber.trim();
-  //   console.log(phoneNumber, 'its 2 number');
-  //   if (!formattedPhoneNumber.startsWith('+')) {
-  //     console.error('Пожалуйста, укажите номер телефона в международном формате.');
-  //     return;
-  //   }
-  //   signInWithPhoneNumber(auth, phoneNumber, appVerifier)
-  //     .then((confirmationResult) => {
-  //       window.confirmationResult = confirmationResult;
-  //     })
-  //     .catch((error) => {
-  //       console.log('Ошибка при отправке SMS: ', error);
-  //     });
-  // };
-
-  // const handleVerifyCode = () => {
-  //   const codeInput = code;
-  //   window.confirmationResult
-  //     .confirm(codeInput)
-  //     .then((result) => {
-  //       // Пользователь аутентифицирован
-  //       console.log('Пользователь успешно аутентифицирован', result.user);
-  //     })
-  //     .catch((error) => {
-  //       console.log('Ошибка при вводе кода из SMS: ', error);
-  //     });
-  // };
-
-  // const setupRecaptcha = (phoneNumber: string) => {
-  //   const recaptcha = new RecaptchaVerifier(auth, 'sign-in-button', {
-  //     size: 'invisible'
-  //   });
-
-  //   return signInWithPhoneNumber(auth, phoneNumber, recaptcha);
-  // };
-
-  // const sendSmsCode = async () => {
-  //   try {
-  //     const confirmObj = await setupRecaptcha(numberPhone);
-  //     console.log(confirmObj, 'its confirm');
-  //   } catch (e) {
-  //     console.log(e, 'error catch');
-  //   }
-  // };
-
-  // const onCaptchVerify = async (phone) => {
-  //   const recaptchaVerifier = new RecaptchaVerifier(auth, 'sign-in-button', {
-  //     size: 'invisible',
-  //     callback: (response) => {
-  //       // reCAPTCHA solved, allow signInWithPhoneNumber.
-  //       console.log(response, 'ist responce');
-  //       // onSignInSubmit();
-  //     }
-  //   });
-  //   console.log(signInWithPhoneNumber(auth, phone, recaptchaVerifier));
-  //   return signInWithPhoneNumber(auth, phone, recaptchaVerifier);
-  // };
-
-  // const onSignInSubmit = () => {
-  //   onCaptchVerify();
-  //   const appVerifier = window.recaptchaVerifier;
-  //   let phone = numberPhone;
-
-  //   signInWithPhoneNumber(auth, phone, appVerifier)
-  //     .then((confirmationResult) => {
-  //       // SMS sent. Prompt user to type the code from the message, then sign the
-  //       // user in with confirmationResult.confirm(code).
-  //       window.confirmationResult = confirmationResult;
-  //       console.log('send code');
-  //       // ...
-  //     })
-  //     .catch((error) => {
-  //       console.log(error, 'onSign errrorr');
-  //     });
-  // };
 
   const { t } = useTranslation();
   return (

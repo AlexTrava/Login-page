@@ -20,22 +20,27 @@ const setupRecaptcha = (phoneNumber: string) => {
   });
   return signInWithPhoneNumber(auth, phoneNumber, recapthca);
 };
-let testObj = {};
+let testObj;
 export const signIn = createAsyncThunk(
   'auth/signPhoneNumber',
   async (phoneNumber: string, { rejectWithValue }) => {
     try {
       testObj = await setupRecaptcha(phoneNumber);
       return testObj;
-    } catch (error: any) {
-      return rejectWithValue(error.message);
+    } catch (error) {
+      if (error instanceof Error) {
+        return rejectWithValue(error.message);
+      }
     }
   }
 );
 
-const initialState: StateAuth = {
+const initialState = {
   status: Status.LOADING,
-  captchaFetch: {}
+  captchaFetch: {
+    verificationId: '',
+    onConfirmation: () => {}
+  }
 } as StateAuth;
 
 export const authSlice = createSlice({
@@ -48,8 +53,10 @@ export const authSlice = createSlice({
     });
 
     builder.addCase(signIn.fulfilled, (state, action) => {
-      state.status = Status.SUCCES;
-      state.captchaFetch = action.payload;
+      if (action.payload) {
+        state.status = Status.SUCCES;
+        state.captchaFetch = action.payload;
+      }
     });
 
     builder.addCase(signIn.rejected, (state) => {
