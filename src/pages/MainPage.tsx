@@ -1,6 +1,7 @@
 import '@mantine/core/styles.css';
 
 import { AppShell, Flex, Image } from '@mantine/core';
+import type { FC } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import logo from '../../public/logo.svg';
