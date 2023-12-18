@@ -2,6 +2,7 @@ import '@mantine/core/styles.css';
 
 import { rem, Switch, useMantineColorScheme, useMantineTheme } from '@mantine/core';
 import { IconMoonStars, IconSun } from '@tabler/icons-react';
+import type { FC } from 'react';
 import { useState } from 'react';
 
 const SwitchTheme: FC = () => {

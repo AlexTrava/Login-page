@@ -1,6 +1,7 @@
 import '@mantine/core/styles.css';
 
 import { Button, Container, Flex, Image, Paper, Text, TextInput } from '@mantine/core';
+import type { ChangeEvent, FC } from 'react';
 import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';

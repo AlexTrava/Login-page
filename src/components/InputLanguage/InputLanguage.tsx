@@ -1,4 +1,5 @@
 import { Image, NativeSelect } from '@mantine/core';
+import type { ChangeEvent } from 'react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
