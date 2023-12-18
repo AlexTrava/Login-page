@@ -12,7 +12,6 @@ const CheckSmsCodeForm: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const fetchCapthca = useAppSelector(getCaptcha);
-  console.log(fetchCapthca, 'its fetch capthc , checkSms comp');
 
   const [codeSms, setCode] = useState('');
   const getSmsCode = (event: React.ChangeEvent<HTMLInputElement>): void => {

@@ -18,7 +18,6 @@ const LoginForm: React.FC = () => {
 
   const getPhoneNumberFromUserInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
-    console.log(event.currentTarget.value);
     setNumberPhone(event.currentTarget.value);
   };
 

@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
+import { ConfirmationResult, RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 
 import { auth } from '../../firebase';
 
@@ -11,7 +11,7 @@ export enum Status {
 
 type StateAuth = {
   status: Status;
-  captchaFetch: any;
+  captchaFetch: ConfirmationResult;
 };
 
 const setupRecaptcha = (phoneNumber: string) => {
@@ -20,27 +20,21 @@ const setupRecaptcha = (phoneNumber: string) => {
   });
   return signInWithPhoneNumber(auth, phoneNumber, recapthca);
 };
-let testObj;
-export const signIn = createAsyncThunk(
+export const signIn = createAsyncThunk<ConfirmationResult, string, { rejectValue: string }>(
   'auth/signPhoneNumber',
   async (phoneNumber: string, { rejectWithValue }) => {
     try {
-      testObj = await setupRecaptcha(phoneNumber);
+      const testObj = await setupRecaptcha(phoneNumber);
       return testObj;
     } catch (error) {
-      if (error instanceof Error) {
-        return rejectWithValue(error.message);
-      }
+      return rejectWithValue((error as Error).message);
     }
   }
 );
 
 const initialState = {
   status: Status.LOADING,
-  captchaFetch: {
-    verificationId: '',
-    onConfirmation: () => {}
-  }
+  captchaFetch: {}
 } as StateAuth;
 
 export const authSlice = createSlice({
@@ -53,10 +47,8 @@ export const authSlice = createSlice({
     });
 
     builder.addCase(signIn.fulfilled, (state, action) => {
-      if (action.payload) {
-        state.status = Status.SUCCES;
-        state.captchaFetch = action.payload;
-      }
+      state.status = Status.SUCCES;
+      state.captchaFetch = action.payload;
     });
 
     builder.addCase(signIn.rejected, (state) => {
