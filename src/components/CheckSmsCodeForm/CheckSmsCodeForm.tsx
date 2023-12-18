@@ -8,13 +8,13 @@ import { setVerificationId } from '../../redux/slices/userSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import classes from './CheckSmsCodeForm.module.css';
 
-const CheckSmsCodeForm: React.FC = () => {
+const CheckSmsCodeForm: FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const fetchCapthca = useAppSelector(getCaptcha);
 
   const [codeSms, setCode] = useState('');
-  const getSmsCode = (event: React.ChangeEvent<HTMLInputElement>): void => {
+  const getSmsCode = (event: ChangeEvent<HTMLInputElement>): void => {
     event.preventDefault();
     setCode(event.currentTarget.value);
   };

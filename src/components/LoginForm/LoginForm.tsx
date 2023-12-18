@@ -11,12 +11,12 @@ import { setPhoneNumber } from '../../redux/slices/userSlice';
 import { useAppDispatch } from '../../redux/store';
 import classes from './LoginForm.module.css';
 
-const LoginForm: React.FC = () => {
+const LoginForm: FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [phoneNumber, setNumberPhone] = useState('');
 
-  const getPhoneNumberFromUserInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const getPhoneNumberFromUserInput = (event: ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
     setNumberPhone(event.currentTarget.value);
   };

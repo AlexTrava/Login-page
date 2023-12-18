@@ -11,7 +11,7 @@ import LogoutButton from '../components/LogoutButton/LogoutButton';
 import SuccessCheckCode from '../components/SuccessCheckCode/SuccessCheckCode';
 import SwitchTheme from '../components/SwitchTheme/SwitchTheme';
 
-const MainPage: React.FC = () => {
+const MainPage: FC = () => {
   return (
     <AppShell
       header={{ height: 60 }}

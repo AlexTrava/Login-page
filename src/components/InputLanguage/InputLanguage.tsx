@@ -8,7 +8,7 @@ const InputLanguage = () => {
   const [value, setValue] = useState<string>('');
   const { i18n } = useTranslation();
 
-  const handleLangSwitch = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleLangSwitch = (event: ChangeEvent<HTMLSelectElement>) => {
     setValue(event.currentTarget.value);
     const lang = event.currentTarget.value.toLowerCase();
     i18n.changeLanguage(lang);
