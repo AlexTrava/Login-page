@@ -1,12 +1,13 @@
 import { ActionIcon, Image } from '@mantine/core';
 import { signOut } from 'firebase/auth';
+import type { FC } from 'react';
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import logout from '../../../public/logout.svg';
 import { auth } from '../../firebase';
 
-const LogoutButton: React.FC = () => {
+const LogoutButton: FC = () => {
   const navigate = useNavigate();
 
   const handlerLogOut = useCallback(async () => {

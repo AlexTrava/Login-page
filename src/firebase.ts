@@ -11,33 +11,3 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
-
-// // login witn phone number
-// import { getAuth, signInWithPhoneNumber } from 'firebase/auth';
-
-// const phoneNumber = getPhoneNumberFromUserInput();
-// const appVerifier = window.recaptchaVerifier;
-
-// const auth = getAuth();
-// signInWithPhoneNumber(auth, phoneNumber, appVerifier)
-//   .then((confirmationResult) => {
-//     // SMS sent. Prompt user to type the code from the message, then sign the
-//     // user in with confirmationResult.confirm(code).
-//     window.confirmationResult = confirmationResult;
-//     // ...
-//   })
-//   .catch((error) => {
-//     // Error; SMS not sent
-//     // ...
-//   });
-
-// // sign out
-
-// // import { getAuth, signOut } from "firebase/auth";
-
-// // const auth = getAuth();
-// // signOut(auth).then(() => {
-// //   // Sign-out successful.
-// // }).catch((error) => {
-// //   // An error happened.
-// // });

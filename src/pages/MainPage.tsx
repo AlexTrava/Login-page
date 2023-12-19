@@ -1,6 +1,7 @@
 import '@mantine/core/styles.css';
 
 import { AppShell, Flex, Image } from '@mantine/core';
+import type { FC } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import logo from '../../public/logo.svg';
@@ -11,7 +12,7 @@ import LogoutButton from '../components/LogoutButton/LogoutButton';
 import SuccessCheckCode from '../components/SuccessCheckCode/SuccessCheckCode';
 import SwitchTheme from '../components/SwitchTheme/SwitchTheme';
 
-const MainPage: React.FC = () => {
+const MainPage: FC = () => {
   return (
     <AppShell
       header={{ height: 60 }}
