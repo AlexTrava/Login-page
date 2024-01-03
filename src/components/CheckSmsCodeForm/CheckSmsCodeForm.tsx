@@ -41,7 +41,7 @@ const CheckSmsCodeForm: FC = () => {
     } else {
       navigate(NavigateTo.SuccesAuth);
     }
-  }, [userFetch]);
+  }, [usersFetch]);
   const { t } = useTranslation();
   return (
     <Container size={460} my={30} ta="center" mt={250}>
