@@ -1,4 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
+import authenticationFormSlice from '@store/slices/authenticationFormSlice';
 import authSlice from '@store/slices/authSlice';
 import userSlice from '@store/slices/userSlice';
 import userSliceFirestore from '@store/slices/userSliceFirestore';
@@ -7,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 export const store = configureStore({
   reducer: {
+    authenticationFormSlice: authenticationFormSlice,
     authSlice: authSlice,
     userSlcie: userSlice,
     userSliceFirestore: userSliceFirestore

@@ -1,14 +1,10 @@
 import '@mantine/core/styles.css';
 
 import { AppShell, Flex, Image } from '@mantine/core';
-import { Route, Routes } from 'react-router-dom';
 
-import CheckSmsCodeForm from '@/components/CheckSmsCodeForm/CheckSmsCodeForm';
+import AuthenticationForm from '@/components/AuthenticationForm/AuthenticationForm';
 import InputLanguage from '@/components/InputLanguage/InputLanguage';
-import LoginForm from '@/components/LoginForm/LoginForm';
 import LogoutButton from '@/components/LogoutButton/LogoutButton';
-import NickNameForm from '@/components/NickNameForm/NickNameForm';
-import SuccessCheckCode from '@/components/SuccessCheckCode/SuccessCheckCode';
 import SwitchTheme from '@/components/SwitchTheme/SwitchTheme';
 import type { FC } from '@/types';
 
@@ -42,12 +38,7 @@ const MainPage: FC = () => {
         <LogoutButton />
       </AppShell.Navbar>
       <AppShell.Main>
-        <Routes>
-          <Route path="/" element={<LoginForm />} />
-          <Route path="/sendSms" element={<CheckSmsCodeForm />} />
-          <Route path="/auth" element={<SuccessCheckCode />} />
-          <Route path="/nick" element={<NickNameForm />} />
-        </Routes>
+        <AuthenticationForm />
       </AppShell.Main>
     </AppShell>
   );
