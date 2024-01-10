@@ -1,35 +1,34 @@
 import '@mantine/core/styles.css';
 
 import { Button, Flex, Image, Paper, Text, TextInput } from '@mantine/core';
-import { useCallback, useState } from 'react';
+import type { UseFormReturnType } from '@mantine/form';
+import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
 
+import { getPhoneNumber } from '@/redux/selectors';
+import { setFormType } from '@/redux/slices/authenticationFormSlice';
 import { signIn } from '@/redux/slices/authSlice';
-import { setPhoneNumber } from '@/redux/slices/userSlice';
-import { useAppDispatch } from '@/redux/store';
-import { NavigateTo } from '@/routes';
-import type { ChangeEvent, FC } from '@/types';
+import { setPhoneNumber } from '@/redux/slices/curentUserSlice';
+import { useAppDispatch, useAppSelector } from '@/redux/store';
+import type { FC, FormFields } from '@/types';
 
 import iconSteam from '../../../public/steam.svg';
 import classes from './LoginForm.module.css';
 
-const LoginForm: FC = () => {
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-  const [phoneNumber, setNumberPhone] = useState('');
+interface LoginFormProps {
+  form: UseFormReturnType<FormFields>;
+}
 
-  const getPhoneNumberFromUserInput = (event: ChangeEvent<HTMLInputElement>) => {
-    event.preventDefault();
-    setNumberPhone(event.currentTarget.value);
-  };
+const LoginForm: FC<LoginFormProps> = ({ form }) => {
+  const dispatch = useAppDispatch();
+  const phoneNumber = useAppSelector(getPhoneNumber);
+  const validFieldPhone = form.isValid('phoneNumber');
 
   const handlerAuth = useCallback(async () => {
-    dispatch(setPhoneNumber(phoneNumber));
-    await dispatch(signIn(phoneNumber));
-    navigate(NavigateTo.SendSms);
+    dispatch(setPhoneNumber(phoneNumber!));
+    await dispatch(signIn(phoneNumber!));
+    dispatch(setFormType('sms'));
   }, [phoneNumber]);
-
   const { t } = useTranslation();
   return (
     <Paper withBorder shadow="md" p={30} radius="md" mt="xl">
@@ -39,8 +38,9 @@ const LoginForm: FC = () => {
         placeholder={t('enterPhone')}
         required
         ta="left"
-        onChange={getPhoneNumberFromUserInput}
-        value={phoneNumber}
+        // value={phoneNumber}
+        // onChange={getPhoneNumberFromUserInput}
+        {...form.getInputProps('phoneNumber')}
       />
       <Flex mih={50} gap="sm" justify="center" align="center" direction="column" wrap="wrap">
         <Button
@@ -48,7 +48,8 @@ const LoginForm: FC = () => {
           mt={30}
           radius="lg"
           id="sign-in-button"
-          onClick={handlerAuth}>
+          onClick={handlerAuth}
+          disabled={!validFieldPhone}>
           {t('sendSms')}
         </Button>
         <Button

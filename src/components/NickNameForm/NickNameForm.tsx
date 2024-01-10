@@ -1,29 +1,32 @@
 import { Button, Container, Flex, Paper, Text, TextInput } from '@mantine/core';
+import type { UseFormReturnType } from '@mantine/form';
 import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
 
 import { auth } from '@/firebase';
-import { getUsersState } from '@/redux/selectors';
+import { getDisplayName, getUsersState } from '@/redux/selectors';
+import { setFormType } from '@/redux/slices/authenticationFormSlice';
 import { getUser, setUser } from '@/redux/slices/userSliceFirestore';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
-import { NavigateTo } from '@/routes';
-import type { ChangeEvent, FC, UserInfo } from '@/types';
+import type { FC, FormFields, UserInfo } from '@/types';
 
 import classes from './NickNameForm.module.css';
 
-const NickNameForm: FC = () => {
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
+interface NickNameFormProps {
+  form: UseFormReturnType<FormFields>;
+}
 
-  const [nickName, setNickName] = useState('');
+const NickNameForm: FC<NickNameFormProps> = ({ form }) => {
+  const dispatch = useAppDispatch();
+  const nickName = useAppSelector(getDisplayName);
+  // const [nickName, setNickName] = useState('');
   const [taken, setIsTaken] = useState(false);
   const usersFetch = useAppSelector(getUsersState);
 
-  const getDisplayName = (event: ChangeEvent<HTMLInputElement>): void => {
-    event.preventDefault();
-    setNickName(event.currentTarget.value);
-  };
+  // const getDisplayName = (event: ChangeEvent<HTMLInputElement>): void => {
+  //   event.preventDefault();
+  //   setNickName(event.currentTarget.value);
+  // };
 
   useEffect(() => {
     dispatch(getUser());
@@ -46,7 +49,7 @@ const NickNameForm: FC = () => {
         })
       );
       setIsTaken(false);
-      navigate(NavigateTo.SuccesAuth);
+      dispatch(setFormType('auth'));
     }
   }, [nickName]);
 
@@ -59,12 +62,11 @@ const NickNameForm: FC = () => {
           <TextInput
             required
             ta="left"
-            onChange={getDisplayName}
-            value={nickName}
+            {...form.getInputProps('nickName')}
             error="Nickname already been taken"
           />
         ) : (
-          <TextInput required ta="left" onChange={getDisplayName} value={nickName} />
+          <TextInput required ta="left" {...form.getInputProps('nickName')} />
         )}
         <Flex mih={50} gap="sm" justify="center" align="center" direction="column" wrap="wrap">
           <Button

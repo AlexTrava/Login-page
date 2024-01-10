@@ -1,65 +1,68 @@
-import { Button, Container, Flex, Paper, Text, TextInput } from '@mantine/core';
-import { useCallback, useEffect, useState } from 'react';
+import { Button, Flex, Paper, Text, TextInput } from '@mantine/core';
+import type { UseFormReturnType } from '@mantine/form';
+import { useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
 
 import { auth } from '@/firebase';
 import { getCaptcha, getUsersState } from '@/redux/selectors';
+import { getSmsCode } from '@/redux/selectors';
+import { setFormType } from '@/redux/slices/authenticationFormSlice';
 import { getUser } from '@/redux/slices/userSliceFirestore';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
-import { NavigateTo } from '@/routes';
-import type { ChangeEvent, FC } from '@/types';
+import type { FC, FormFields } from '@/types';
 
 import classes from './CheckSmsCodeForm.module.css';
 
-const CheckSmsCodeForm: FC = () => {
-  const navigate = useNavigate();
+interface CheckSmsCodeFormProps {
+  form: UseFormReturnType<FormFields>;
+}
+
+const CheckSmsCodeForm: FC<CheckSmsCodeFormProps> = ({ form }) => {
   const dispatch = useAppDispatch();
+  const smsCode = useAppSelector(getSmsCode);
   const fetchCapthca = useAppSelector(getCaptcha);
-  const [codeSms, setCode] = useState('');
+  // const [codeSms, setCode] = useState('');
   const usersFetch = useAppSelector(getUsersState);
 
-  const getSmsCode = (event: ChangeEvent<HTMLInputElement>): void => {
-    event.preventDefault();
-    setCode(event.currentTarget.value);
-  };
+  // const getSmsCode = (event: ChangeEvent<HTMLInputElement>): void => {
+  //   event.preventDefault();
+  //   setCode(event.currentTarget.value);
+  // };
   useEffect(() => {
     dispatch(getUser());
-  }, [codeSms]);
+  }, [smsCode]);
 
   const handlerVerifyCode = useCallback(async () => {
-    await fetchCapthca.confirm(codeSms);
+    await fetchCapthca.confirm(smsCode!);
     const currentUserUid = auth.currentUser?.uid;
-    const currentUser = usersFetch.filter((user) => user.uid === currentUserUid);
+    const currentUser = usersFetch.filter((user) => user.uid === currentUserUid); // ?
     if (currentUser.length == 0) {
-      navigate(NavigateTo.SetNickname);
+      dispatch(setFormType('nick'));
     }
     const [{ displayName }] = currentUser;
 
     if (currentUser.length > 0 && displayName) {
-      navigate(NavigateTo.SuccesAuth);
+      dispatch(setFormType('auth'));
     } else {
-      navigate(NavigateTo.SuccesAuth);
+      dispatch(setFormType('auth'));
     }
   }, [usersFetch]);
   const { t } = useTranslation();
   return (
-    <Container size={460} my={30} ta="center" mt={250}>
-      <Paper withBorder shadow="md" p={30} radius="md" mt="xl">
-        <Text>{t('enterCode')}</Text>
-        <TextInput required ta="left" onChange={getSmsCode} value={codeSms} />
-        <Flex mih={50} gap="sm" justify="center" align="center" direction="column" wrap="wrap">
-          <Button
-            className={classes.control}
-            radius="lg"
-            mt={20}
-            id="sign-in-button"
-            onClick={handlerVerifyCode}>
-            {t('send')}
-          </Button>
-        </Flex>
-      </Paper>
-    </Container>
+    <Paper withBorder shadow="md" p={30} radius="md" mt="xl">
+      <Text>{t('enterCode')}</Text>
+      <TextInput required ta="left" {...form.getInputProps('smsCode')} />
+      <Flex mih={50} gap="sm" justify="center" align="center" direction="column" wrap="wrap">
+        <Button
+          className={classes.control}
+          radius="lg"
+          mt={20}
+          id="sign-in-button"
+          onClick={handlerVerifyCode}>
+          {t('send')}
+        </Button>
+      </Flex>
+    </Paper>
   );
 };
 
