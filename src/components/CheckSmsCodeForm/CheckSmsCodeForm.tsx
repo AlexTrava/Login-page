@@ -21,13 +21,8 @@ const CheckSmsCodeForm: FC<CheckSmsCodeFormProps> = ({ form }) => {
   const dispatch = useAppDispatch();
   const smsCode = useAppSelector(getSmsCode);
   const fetchCapthca = useAppSelector(getCaptcha);
-  // const [codeSms, setCode] = useState('');
   const usersFetch = useAppSelector(getUsersState);
 
-  // const getSmsCode = (event: ChangeEvent<HTMLInputElement>): void => {
-  //   event.preventDefault();
-  //   setCode(event.currentTarget.value);
-  // };
   useEffect(() => {
     dispatch(getUser());
   }, [smsCode]);

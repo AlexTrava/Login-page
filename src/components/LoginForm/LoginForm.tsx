@@ -38,8 +38,6 @@ const LoginForm: FC<LoginFormProps> = ({ form }) => {
         placeholder={t('enterPhone')}
         required
         ta="left"
-        // value={phoneNumber}
-        // onChange={getPhoneNumberFromUserInput}
         {...form.getInputProps('phoneNumber')}
       />
       <Flex mih={50} gap="sm" justify="center" align="center" direction="column" wrap="wrap">

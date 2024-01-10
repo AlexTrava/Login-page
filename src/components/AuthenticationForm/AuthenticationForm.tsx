@@ -6,7 +6,7 @@ import { Container } from '@mantine/core';
 import { useForm } from '@mantine/form';
 
 import { getFormTypeState } from '@/redux/selectors';
-import { setPhoneNumber, setSmsCode } from '@/redux/slices/curentUserSlice';
+import { setDisplayName, setPhoneNumber, setSmsCode } from '@/redux/slices/curentUserSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
 import type { FormFields } from '@/types';
 
@@ -31,8 +31,7 @@ const AuthenticationForm = () => {
 
   dispatch(setPhoneNumber(form.values.phoneNumber));
   dispatch(setSmsCode(form.values.smsCode));
-
-  console.log(form, 'its form authentic form comp');
+  dispatch(setDisplayName(form.values.nickName));
 
   let renderForm;
   switch (formType) {

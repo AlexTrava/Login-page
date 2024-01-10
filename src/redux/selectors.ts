@@ -6,3 +6,4 @@ export const getFormTypeState = (state: RootState) => state.authenticationFormSl
 export const getPhoneNumber = (state: RootState) => state.curentUserSlice.phoneNumber;
 export const getSmsCode = (state: RootState) => state.curentUserSlice.smsCode;
 export const getDisplayName = (state: RootState) => state.curentUserSlice.displayName;
+export const getisTaken = (state: RootState) => state.userSliceFirestore.isTaken;
