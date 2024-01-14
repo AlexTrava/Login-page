@@ -2,6 +2,7 @@ import '@/i18n';
 import '@/firebase';
 
 import { MantineProvider } from '@mantine/core';
+import { Notifications } from '@mantine/notifications';
 import { store } from '@store/store';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
@@ -15,6 +16,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <React.StrictMode>
       <BrowserRouter>
         <MantineProvider defaultColorScheme="dark">
+          <Notifications position="top-right" />
           <App />
         </MantineProvider>
       </BrowserRouter>

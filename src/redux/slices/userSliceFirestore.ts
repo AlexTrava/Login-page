@@ -3,6 +3,7 @@ import { addDoc, collection, getDocs, query, where } from 'firebase/firestore';
 
 import { db } from '@/firebase';
 import type { DocumentData, UserInfo } from '@/types';
+import errorHandler from '@/utils/errorsHandler';
 
 export enum Status {
   LOADING = 'loading',
@@ -27,7 +28,7 @@ export const getUser = createAsyncThunk<UserInfo[], undefined, { rejectValue: st
       });
       return users;
     } catch (error) {
-      return rejectWithValue((error as Error).message);
+      return rejectWithValue(errorHandler(error, 'getUser Error'));
     }
   }
 );
@@ -38,7 +39,7 @@ export const setUser = createAsyncThunk<undefined, UserInfo, { rejectValue: stri
     try {
       await addDoc(collection(db, 'users'), infoUser);
     } catch (error) {
-      return rejectWithValue((error as Error).message);
+      return rejectWithValue(errorHandler(error, 'setUser Error'));
     }
   }
 );
@@ -52,7 +53,7 @@ export const isTakenDisplayName = createAsyncThunk<boolean, string, { rejectValu
       const querySnapshot = await getDocs(docsQuery);
       return querySnapshot.empty;
     } catch (error) {
-      return rejectWithValue((error as Error).message);
+      return rejectWithValue(errorHandler(error, 'isTakenDisplayName Error'));
     }
   }
 );

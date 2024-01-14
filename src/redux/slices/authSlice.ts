@@ -3,6 +3,7 @@ import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 
 import { auth } from '@/firebase';
 import type { ConfirmationResult } from '@/types';
+import errorHandler from '@/utils/errorsHandler';
 
 export enum Status {
   LOADING = 'loading',
@@ -28,7 +29,7 @@ export const signIn = createAsyncThunk<ConfirmationResult, string, { rejectValue
       const testObj = await setupRecaptcha(phoneNumber);
       return testObj;
     } catch (error) {
-      return rejectWithValue((error as Error).message);
+      return rejectWithValue(errorHandler(error, 'signIn Error'));
     }
   }
 );
