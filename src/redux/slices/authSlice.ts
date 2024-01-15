@@ -26,8 +26,8 @@ export const signIn = createAsyncThunk<ConfirmationResult, string, { rejectValue
   'auth/signPhoneNumber',
   async (phoneNumber: string, { rejectWithValue }) => {
     try {
-      const testObj = await setupRecaptcha(phoneNumber);
-      return testObj;
+      const recaptcha = await setupRecaptcha(phoneNumber);
+      return recaptcha;
     } catch (error) {
       return rejectWithValue(errorHandler(error, 'signIn Error'));
     }

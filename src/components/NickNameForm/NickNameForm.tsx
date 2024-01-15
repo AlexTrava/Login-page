@@ -1,6 +1,6 @@
 import { Button, Container, Flex, Paper, Text, TextInput } from '@mantine/core';
 import type { UseFormReturnType } from '@mantine/form';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { auth } from '@/firebase';
@@ -18,7 +18,6 @@ interface NickNameFormProps {
 
 const NickNameForm: FC<NickNameFormProps> = ({ form }) => {
   const dispatch = useAppDispatch();
-  const [taken, setIsTaken] = useState(false);
   const nickName = useAppSelector(getDisplayName);
 
   useEffect(() => {
@@ -30,8 +29,6 @@ const NickNameForm: FC<NickNameFormProps> = ({ form }) => {
   const handlerNicknameInput = useCallback(async () => {
     const currentUser = auth.currentUser;
     if (isTaken) {
-      setIsTaken(true);
-    } else {
       dispatch(
         setUser({
           displayName: nickName,
@@ -42,7 +39,6 @@ const NickNameForm: FC<NickNameFormProps> = ({ form }) => {
           uid: currentUser!.uid
         })
       );
-      setIsTaken(false);
       dispatch(setFormType('auth'));
     }
   }, [nickName]);
@@ -52,7 +48,7 @@ const NickNameForm: FC<NickNameFormProps> = ({ form }) => {
     <Container size={460} my={30} ta="center" mt={250}>
       <Paper withBorder shadow="md" p={30} radius="md" mt="xl">
         <Text>{t('nickName')}</Text>
-        {taken ? (
+        {!isTaken ? (
           <TextInput
             required
             ta="left"
@@ -68,7 +64,8 @@ const NickNameForm: FC<NickNameFormProps> = ({ form }) => {
             radius="lg"
             mt={20}
             id="sign-in-button"
-            onClick={handlerNicknameInput}>
+            onClick={handlerNicknameInput}
+            disabled={!isTaken}>
             {t('send')}
           </Button>
         </Flex>

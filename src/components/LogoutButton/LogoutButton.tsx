@@ -7,6 +7,7 @@ import { auth } from '@/firebase';
 import { setClearUser } from '@/redux/slices/userSliceFirestore';
 import { useAppDispatch } from '@/redux/store';
 import type { FC } from '@/types';
+import errorHandler from '@/utils/errorsHandler';
 
 import logout from '../../../public/logout.svg';
 
@@ -21,7 +22,7 @@ const LogoutButton: FC = () => {
         navigate('/');
       })
       .catch((error) => {
-        console.log(error, 'logout error');
+        errorHandler(error, 'signOut Error');
       });
   }, []);
   return (
