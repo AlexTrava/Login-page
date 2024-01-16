@@ -3,10 +3,11 @@ import type { UseFormReturnType } from '@mantine/form';
 import { useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { auth } from '@/firebase';
-import { getCaptcha, getUsersState } from '@/redux/selectors';
+// import { auth } from '@/firebase';
+import { getCaptcha } from '@/redux/selectors'; //getIsUserExist
 import { getSmsCode } from '@/redux/selectors';
-import { setFormType } from '@/redux/slices/authenticationFormSlice';
+import { handlerVerifyCode } from '@/redux/slices/authenticationFormSlice';
+// import { setFormType } from '@/redux/slices/authenticationFormSlice';
 import { getUser } from '@/redux/slices/userSliceFirestore';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
 import type { FC, FormFields } from '@/types';
@@ -21,27 +22,30 @@ const CheckSmsCodeForm: FC<CheckSmsCodeFormProps> = ({ form }) => {
   const dispatch = useAppDispatch();
   const smsCode = useAppSelector(getSmsCode);
   const fetchCapthca = useAppSelector(getCaptcha);
-  const usersFetch = useAppSelector(getUsersState);
+  // const userisExist = useAppSelector(getIsUserExist);
+  const handlerProps = { fetchCapthca, smsCode };
 
   useEffect(() => {
     dispatch(getUser());
   }, [smsCode]);
 
-  const handlerVerifyCode = useCallback(async () => {
-    await fetchCapthca.confirm(smsCode!);
-    const currentUserUid = auth.currentUser?.uid;
-    const currentUser = usersFetch.filter((user) => user.uid === currentUserUid); // ?
-    if (currentUser.length == 0) {
-      dispatch(setFormType('nick'));
-    }
-    const [{ displayName }] = currentUser;
+  const handlerVerifyCodeSms = useCallback(async () => {
+    await dispatch(handlerVerifyCode(handlerProps));
+    // const currentUser = auth.currentUser;
 
-    if (currentUser.length > 0 && displayName) {
-      dispatch(setFormType('auth'));
-    } else {
-      dispatch(setFormType('auth'));
-    }
-  }, [usersFetch]);
+    // if (userisExist) {
+    //   dispatch(setFormType('nick'));
+    // }
+    // const { displayName } = currentUser;
+    // console.log(displayName, 'its display test');
+
+    // if (userisExist && displayName) {
+    //   dispatch(setFormType('auth'));
+    // } else {
+    //   dispatch(setFormType('auth'));
+    // }
+  }, [smsCode]);
+
   const { t } = useTranslation();
   return (
     <Paper withBorder shadow="md" p={30} radius="md" mt="xl">
@@ -53,7 +57,7 @@ const CheckSmsCodeForm: FC<CheckSmsCodeFormProps> = ({ form }) => {
           radius="lg"
           mt={20}
           id="sign-in-button"
-          onClick={handlerVerifyCode}>
+          onClick={handlerVerifyCodeSms}>
           {t('send')}
         </Button>
       </Flex>
