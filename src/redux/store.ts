@@ -12,8 +12,8 @@ export const store = configureStore({
     authenticationFormSlice: authenticationFormSlice,
     authSlice: authSlice,
     curentUserSlice: curentUserSlice,
-    userSliceFirestore: userSliceFirestore
-  }
+    userSliceFirestore: userSliceFirestore,
+  },
 });
 
 type RootState = ReturnType<typeof store.getState>;

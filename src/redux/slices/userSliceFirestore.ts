@@ -1,19 +1,19 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { addDoc, collection, getDocs, query, where } from 'firebase/firestore';
 
-import { db } from '@/firebase';
+import { auth, db } from '@/firebase';
 import type { DocumentData, UserInfo } from '@/types';
 import errorHandler from '@/utils/errorsHandler';
 
 export enum Status {
   LOADING = 'loading',
   AUTH = 'auth',
-  ERROR = 'error'
+  ERROR = 'error',
 }
 
 type StateAuth = {
   status: Status;
-  user: UserInfo[];
+  currentUserFetch: UserInfo[];
   isTaken: boolean;
 };
 
@@ -21,16 +21,20 @@ export const getUser = createAsyncThunk<UserInfo[], undefined, { rejectValue: st
   'firestore/getUser',
   async (_, { rejectWithValue }) => {
     try {
-      const usersFetch = await getDocs(collection(db, 'users'));
-      const users: UserInfo[] = [];
-      usersFetch.forEach((doc: DocumentData) => {
-        users.push(doc.data());
+      const currentUserUid = auth.currentUser?.uid;
+      console.log(currentUserUid);
+      const collectionRef = collection(db, 'users');
+      const docsQuery = query(collectionRef, where('uid', '==', currentUserUid));
+      const querySnapshot = await getDocs(docsQuery);
+      const user: UserInfo[] = [];
+      querySnapshot.forEach((doc: DocumentData) => {
+        user.push(doc.data());
       });
-      return users;
+      return user;
     } catch (error) {
       return rejectWithValue(errorHandler(error, 'getUser Error'));
     }
-  }
+  },
 );
 
 export const setUser = createAsyncThunk<undefined, UserInfo, { rejectValue: string }>(
@@ -41,27 +45,28 @@ export const setUser = createAsyncThunk<undefined, UserInfo, { rejectValue: stri
     } catch (error) {
       return rejectWithValue(errorHandler(error, 'setUser Error'));
     }
-  }
+  },
 );
 
-export const isTakenDisplayName = createAsyncThunk<boolean, string, { rejectValue: string }>(
-  'firestore/isTakenDisplayName',
-  async (displayName, { rejectWithValue }) => {
-    try {
-      const collectionRef = collection(db, 'users');
-      const docsQuery = query(collectionRef, where('displayName', '==', displayName));
-      const querySnapshot = await getDocs(docsQuery);
-      return querySnapshot.empty;
-    } catch (error) {
-      return rejectWithValue(errorHandler(error, 'isTakenDisplayName Error'));
-    }
+export const isTakenDisplayName = createAsyncThunk<
+  boolean,
+  string,
+  { rejectValue: string }
+>('firestore/isTakenDisplayName', async (displayName, { rejectWithValue }) => {
+  try {
+    const collectionRef = collection(db, 'users');
+    const docsQuery = query(collectionRef, where('displayName', '==', displayName));
+    const querySnapshot = await getDocs(docsQuery);
+    return querySnapshot.empty;
+  } catch (error) {
+    return rejectWithValue(errorHandler(error, 'isTakenDisplayName Error'));
   }
-);
+});
 
 const initialState = {
   status: Status.LOADING,
-  user: [],
-  isTaken: false
+  currentUserFetch: [],
+  isTaken: false,
 } as StateAuth;
 
 export const userSliceFirestore = createSlice({
@@ -69,8 +74,8 @@ export const userSliceFirestore = createSlice({
   initialState,
   reducers: {
     setClearUser(state) {
-      state.user = [];
-    }
+      state.currentUserFetch = [];
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getUser.pending, (state) => {
@@ -79,7 +84,7 @@ export const userSliceFirestore = createSlice({
 
     builder.addCase(getUser.fulfilled, (state, action) => {
       state.status = Status.AUTH;
-      state.user = action.payload;
+      state.currentUserFetch = action.payload;
     });
 
     builder.addCase(getUser.rejected, (state) => {
@@ -111,7 +116,7 @@ export const userSliceFirestore = createSlice({
       state.status = Status.ERROR;
       state.isTaken = false;
     });
-  }
+  },
 });
 
 export const { setClearUser } = userSliceFirestore.actions;

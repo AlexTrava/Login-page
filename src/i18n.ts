@@ -8,16 +8,16 @@ i18next.use(initReactI18next).init({
   debug: true,
   fallbackLng: 'en',
   interpolation: {
-    escapeValue: false
+    escapeValue: false,
   },
   resources: {
     en: {
-      translation: en
+      translation: en,
     },
     ru: {
-      translation: ru
-    }
-  }
+      translation: ru,
+    },
+  },
 });
 
 export default i18next;

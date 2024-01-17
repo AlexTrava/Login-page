@@ -40,20 +40,29 @@ const LoginForm: FC<LoginFormProps> = ({ form }) => {
         ta="left"
         {...form.getInputProps('phoneNumber')}
       />
-      <Flex mih={50} gap="sm" justify="center" align="center" direction="column" wrap="wrap">
+      <Flex
+        mih={50}
+        gap="sm"
+        justify="center"
+        align="center"
+        direction="column"
+        wrap="wrap"
+      >
         <Button
           className={classes.control}
           mt={30}
           radius="lg"
           id="sign-in-button"
           onClick={handlerAuth}
-          disabled={!validFieldPhone}>
+          disabled={!validFieldPhone}
+        >
           {t('sendSms')}
         </Button>
         <Button
           className={classes.control}
           radius="lg"
-          leftSection={<Image h={20} w={20} src={iconSteam} />}>
+          leftSection={<Image h={20} w={20} src={iconSteam} />}
+        >
           {t('signSteam')}
         </Button>
       </Flex>

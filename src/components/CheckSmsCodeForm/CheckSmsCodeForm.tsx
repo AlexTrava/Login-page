@@ -3,8 +3,8 @@ import type { UseFormReturnType } from '@mantine/form';
 import { useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
-// import { auth } from '@/firebase';
-import { getCaptcha } from '@/redux/selectors'; //getIsUserExist
+import { auth } from '@/firebase';
+import { getCaptcha, getCurrentUserFetch } from '@/redux/selectors'; //
 import { getSmsCode } from '@/redux/selectors';
 import { handlerVerifyCode } from '@/redux/slices/authenticationFormSlice';
 // import { setFormType } from '@/redux/slices/authenticationFormSlice';
@@ -22,15 +22,19 @@ const CheckSmsCodeForm: FC<CheckSmsCodeFormProps> = ({ form }) => {
   const dispatch = useAppDispatch();
   const smsCode = useAppSelector(getSmsCode);
   const fetchCapthca = useAppSelector(getCaptcha);
-  // const userisExist = useAppSelector(getIsUserExist);
+  const currentUser = useAppSelector(getCurrentUserFetch);
   const handlerProps = { fetchCapthca, smsCode };
+  const currentUserUid = auth.currentUser?.uid;
 
   useEffect(() => {
-    dispatch(getUser());
+    if (currentUserUid) dispatch(getUser());
+    console.log(currentUserUid, 'its checkSms comp');
   }, [smsCode]);
 
   const handlerVerifyCodeSms = useCallback(async () => {
     await dispatch(handlerVerifyCode(handlerProps));
+    console.log(currentUser, 'currentUser');
+
     // const currentUser = auth.currentUser;
 
     // if (userisExist) {
@@ -44,20 +48,28 @@ const CheckSmsCodeForm: FC<CheckSmsCodeFormProps> = ({ form }) => {
     // } else {
     //   dispatch(setFormType('auth'));
     // }
-  }, [smsCode]);
+  }, [smsCode, currentUser, dispatch, fetchCapthca]);
 
   const { t } = useTranslation();
   return (
     <Paper withBorder shadow="md" p={30} radius="md" mt="xl">
       <Text>{t('enterCode')}</Text>
       <TextInput required ta="left" {...form.getInputProps('smsCode')} />
-      <Flex mih={50} gap="sm" justify="center" align="center" direction="column" wrap="wrap">
+      <Flex
+        mih={50}
+        gap="sm"
+        justify="center"
+        align="center"
+        direction="column"
+        wrap="wrap"
+      >
         <Button
           className={classes.control}
           radius="lg"
           mt={20}
           id="sign-in-button"
-          onClick={handlerVerifyCodeSms}>
+          onClick={handlerVerifyCodeSms}
+        >
           {t('send')}
         </Button>
       </Flex>

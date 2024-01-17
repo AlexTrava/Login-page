@@ -10,7 +10,7 @@ type CurrentUser = {
 const initialState = {
   phoneNumber: null,
   smsCode: null,
-  displayName: null
+  displayName: null,
 } as CurrentUser;
 
 const curentUserSlice = createSlice({
@@ -27,8 +27,8 @@ const curentUserSlice = createSlice({
 
     setDisplayName(state, action: PayloadAction<string>) {
       state.displayName = action.payload;
-    }
-  }
+    },
+  },
 });
 
 export const { setPhoneNumber, setSmsCode, setDisplayName } = curentUserSlice.actions;

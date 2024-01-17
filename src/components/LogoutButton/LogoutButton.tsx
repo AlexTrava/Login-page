@@ -31,7 +31,8 @@ const LogoutButton: FC = () => {
       size="xl"
       aria-label="Open in a new tab"
       ml={10}
-      onClick={handlerLogOut}>
+      onClick={handlerLogOut}
+    >
       <Image h={30} w={30} src={logout} />
     </ActionIcon>
   );

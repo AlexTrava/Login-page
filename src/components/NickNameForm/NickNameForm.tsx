@@ -36,8 +36,8 @@ const NickNameForm: FC<NickNameFormProps> = ({ form }) => {
           phoneNumber: currentUser!.phoneNumber,
           photoURL: currentUser!.photoURL,
           providerId: currentUser!.providerId,
-          uid: currentUser!.uid
-        })
+          uid: currentUser!.uid,
+        }),
       );
       dispatch(setFormType('auth'));
     }
@@ -58,14 +58,22 @@ const NickNameForm: FC<NickNameFormProps> = ({ form }) => {
         ) : (
           <TextInput required ta="left" {...form.getInputProps('nickName')} />
         )}
-        <Flex mih={50} gap="sm" justify="center" align="center" direction="column" wrap="wrap">
+        <Flex
+          mih={50}
+          gap="sm"
+          justify="center"
+          align="center"
+          direction="column"
+          wrap="wrap"
+        >
           <Button
             className={classes.control}
             radius="lg"
             mt={20}
             id="sign-in-button"
             onClick={handlerNicknameInput}
-            disabled={!isTaken}>
+            disabled={!isTaken}
+          >
             {t('send')}
           </Button>
         </Flex>

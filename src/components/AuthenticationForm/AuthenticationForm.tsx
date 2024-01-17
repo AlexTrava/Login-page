@@ -6,7 +6,11 @@ import { Container } from '@mantine/core';
 import { useForm } from '@mantine/form';
 
 import { getFormTypeState } from '@/redux/selectors';
-import { setDisplayName, setPhoneNumber, setSmsCode } from '@/redux/slices/curentUserSlice';
+import {
+  setDisplayName,
+  setPhoneNumber,
+  setSmsCode,
+} from '@/redux/slices/curentUserSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
 import type { FormFields } from '@/types';
 
@@ -19,14 +23,15 @@ const AuthenticationForm = () => {
     initialValues: {
       phoneNumber: '',
       smsCode: '',
-      nickName: ''
+      nickName: '',
     },
     validate: {
       phoneNumber: (value) =>
         value.length < 12 ? 'The phone number must consist of 12 characters' : null,
       smsCode: (value) => (value.length < 2 ? 'Name must have at least 2 letters' : null),
-      nickName: (value) => (value.length < 2 ? 'Name must have at least 2 letters' : null)
-    }
+      nickName: (value) =>
+        value.length < 2 ? 'Name must have at least 2 letters' : null,
+    },
   });
 
   dispatch(setPhoneNumber(form.values.phoneNumber));

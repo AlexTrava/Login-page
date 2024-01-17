@@ -16,9 +16,10 @@ const MainPage: FC = () => {
       header={{ height: 60 }}
       navbar={{
         width: 100,
-        breakpoint: 'sm'
+        breakpoint: 'sm',
       }}
-      padding="md">
+      padding="md"
+    >
       <AppShell.Header>
         <Flex justify="space-between">
           <Image h={50} w={50} src={logo} ml={20} />
@@ -28,7 +29,8 @@ const MainPage: FC = () => {
             justify="space-between"
             align="baseline"
             direction="row"
-            wrap="wrap">
+            wrap="wrap"
+          >
             <InputLanguage />
             <SwitchTheme />
           </Flex>
