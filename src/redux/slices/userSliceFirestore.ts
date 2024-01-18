@@ -22,7 +22,6 @@ export const getUser = createAsyncThunk<UserInfo[], undefined, { rejectValue: st
   async (_, { rejectWithValue }) => {
     try {
       const currentUserUid = auth.currentUser?.uid;
-      console.log(currentUserUid);
       const collectionRef = collection(db, 'users');
       const docsQuery = query(collectionRef, where('uid', '==', currentUserUid));
       const querySnapshot = await getDocs(docsQuery);
