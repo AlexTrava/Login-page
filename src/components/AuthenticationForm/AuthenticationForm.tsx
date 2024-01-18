@@ -28,7 +28,8 @@ const AuthenticationForm = () => {
     validate: {
       phoneNumber: (value) =>
         value.length < 12 ? 'The phone number must consist of 12 characters' : null,
-      smsCode: (value) => (value.length < 6 ? 'The smc code number must consist of 6 characters' : null),
+      smsCode: (value) =>
+        value.length < 6 ? 'The smc code number must consist of 6 characters' : null,
       nickName: (value) =>
         value.length < 2 ? 'Name must have at least 2 letters' : null,
     },

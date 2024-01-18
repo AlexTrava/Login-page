@@ -15,11 +15,9 @@ interface CheckSmsCodeFormProps {
 const CheckSmsCodeForm: FC<CheckSmsCodeFormProps> = ({ form }) => {
   const dispatch = useAppDispatch();
 
-
   const handlerVerifyCodeSms = async () => {
     await dispatch(handlerVerifyCode());
   };
-
 
   const { t } = useTranslation();
   return (
