@@ -1,13 +1,14 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import type { ConfirmationResult } from 'firebase/auth';
 import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 
-import { auth } from '../../firebase';
+import { auth } from '@/firebase';
+import type { ConfirmationResult } from '@/types';
+import errorHandler from '@/utils/errorsHandler';
 
 export enum Status {
   LOADING = 'loading',
   SUCCES = 'succes',
-  ERROR = 'error'
+  ERROR = 'error',
 }
 
 type StateAuth = {
@@ -17,25 +18,26 @@ type StateAuth = {
 
 const setupRecaptcha = (phoneNumber: string) => {
   const recapthca = new RecaptchaVerifier(auth, 'sign-in-button', {
-    size: 'invisible'
+    size: 'invisible',
   });
   return signInWithPhoneNumber(auth, phoneNumber, recapthca);
 };
-export const signIn = createAsyncThunk<ConfirmationResult, string, { rejectValue: string }>(
-  'auth/signPhoneNumber',
-  async (phoneNumber: string, { rejectWithValue }) => {
-    try {
-      const testObj = await setupRecaptcha(phoneNumber);
-      return testObj;
-    } catch (error) {
-      return rejectWithValue((error as Error).message);
-    }
+export const signIn = createAsyncThunk<
+  ConfirmationResult,
+  string,
+  { rejectValue: string }
+>('auth/signPhoneNumber', async (phoneNumber: string, { rejectWithValue }) => {
+  try {
+    const recaptcha = await setupRecaptcha(phoneNumber);
+    return recaptcha;
+  } catch (error) {
+    return rejectWithValue(errorHandler(error, 'signIn Error'));
   }
-);
+});
 
 const initialState = {
   status: Status.LOADING,
-  captchaFetch: {}
+  captchaFetch: {},
 } as StateAuth;
 
 export const authSlice = createSlice({
@@ -55,7 +57,7 @@ export const authSlice = createSlice({
     builder.addCase(signIn.rejected, (state) => {
       state.status = Status.ERROR;
     });
-  }
+  },
 });
 
 export default authSlice.reducer;

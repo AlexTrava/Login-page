@@ -1,15 +1,19 @@
 import { configureStore } from '@reduxjs/toolkit';
+import authenticationFormSlice from '@store/slices/authenticationFormSlice';
+import authSlice from '@store/slices/authSlice';
+import userSliceFirestore from '@store/slices/userSliceFirestore';
 import type { TypedUseSelectorHook } from 'react-redux';
 import { useDispatch, useSelector } from 'react-redux';
 
-import authSlice from './slices/authSlice';
-import userSlice from './slices/userSlice';
+import curentUserSlice from '@/redux/slices/curentUserSlice';
 
 export const store = configureStore({
   reducer: {
+    authenticationFormSlice: authenticationFormSlice,
     authSlice: authSlice,
-    userSlcie: userSlice
-  }
+    curentUserSlice: curentUserSlice,
+    userSliceFirestore: userSliceFirestore,
+  },
 });
 
 type RootState = ReturnType<typeof store.getState>;
