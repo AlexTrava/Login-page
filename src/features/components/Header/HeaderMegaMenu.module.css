@@ -1,0 +1,33 @@
+.header {
+	height: rem(80px);
+ }
+ 
+ .link {
+	margin-right: 20px;
+ }
+ @media (max-width: var(--mantine-breakpoint-sm)) {
+	.link {
+	  height: rem(42px);
+	  width: 100%;
+	}
+ }
+ .link:hover {
+	background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-6));
+ }
+ 
+ .subLink {
+	width: 100%;
+	padding: var(--mantine-spacing-xs) var(--mantine-spacing-md);
+	border-radius: var(--mantine-radius-md);
+ 
+ 
+ }
+ .subLink:hover {
+	 background-color: light-dark(
+		var(--mantine-color-gray-0),
+		var(--mantine-color-dark-7)
+	 );
+  }
+ 
+ 
+ 

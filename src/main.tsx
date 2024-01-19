@@ -1,23 +1,23 @@
 import './i18n';
 import './firebase';
 
-import { MantineProvider } from '@mantine/core';
+import { createTheme, MantineProvider } from '@mantine/core';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
-import App from './App.tsx';
-import { store } from './redux/store.ts';
+import App from './App/App.tsx';
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <Provider store={store}>
-    <React.StrictMode>
-      <BrowserRouter>
-        <MantineProvider defaultColorScheme="dark">
-          <App />
-        </MantineProvider>
-      </BrowserRouter>
-    </React.StrictMode>
-  </Provider>
+const theme = createTheme({
+  /** Put your mantine theme override here */
+});
+
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+    <BrowserRouter>
+      <MantineProvider theme={theme}>
+        <App />
+      </MantineProvider>
+    </BrowserRouter>
+  </React.StrictMode>,
 );
