@@ -11,11 +11,12 @@ const MainPage = lazy(() => import('../pages/MainPage/MainPage'));
 const NotFound = lazy(() => import('../pages/Error-404/Error-404'));
 const AdminPage = lazy(() => import('../pages/AdminPage/AdminPage'));
 const AuthPage = lazy(() => import('../pages/Auth/AuthPage'));
+const ProfilePage = lazy(() => import('../pages/ProfilePage/ProfilePage'));
 
 const App: react.FC = () => {
   const [isAllow, setIsAllow] = useState(false);
 
-  const isAdmin = false;
+  const isAdmin = true;
 
   useEffect(() => {
     if (isAdmin) {
@@ -28,7 +29,11 @@ const App: react.FC = () => {
         <Route path={RoutersPaths.MAIN} element={<RootLayout />}>
           <Route index element={<MainPage />} />
           <Route path={RoutersPaths.AUTH} element={<AuthPage />} />
-          <Route path={RoutersPaths.ADMIN} element={isAllow ? <AdminPage /> : <NoAccess />} />
+          <Route
+            path={RoutersPaths.ADMIN}
+            element={isAllow ? <AdminPage /> : <NoAccess />}
+          />
+          <Route path={RoutersPaths.PROFILE} element={<ProfilePage />} />
         </Route>
         <Route path={RoutersPaths.NOFOUND} element={<NotFound />} />
       </Routes>
