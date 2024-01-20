@@ -1,5 +1,5 @@
 {
-  "sign": "Войти",
+  "login":{"sign": "Войти",
   "yourPhone": "Ваш телефон",
   "enterPhone": "Введите ваш телефон",
   "sendSms": "Отправить СМС с кодом",
@@ -8,5 +8,19 @@
   "enterCode": "Введите код",
   "registration": "Успешная регистрация.",
   "useAllFunction": "Теперь ты можешь использовать весь функционал сайта!",
-  "backHomeButton": "Вернуться на домашнюю страницу."
+  "backHomeButton": "Вернуться на домашнюю страницу."},
+  "header": {
+    "home": "Home",
+    "contact": "Contact",
+    "auth": "Auth",
+    "features": "Features",
+    "learn": "Learn",
+    "Login": "Login",
+    "LogOut": "Log out",
+    "Auth": "Auth",
+    "Contacts": "Contacts",
+    "ViewAll": "View all",
+    "ourWorks": "Our Works",
+    "admin": "Admin"
+  }
 }
