@@ -6,9 +6,11 @@ import { Header } from '../../features/components/Header/Header';
 const RootLayout = () => {
   return (
     <Container>
-      <Flex justify="" align="flex-start" direction="" wrap="wrap">
+      <Flex justify="" align="flex-start" direction="column">
         <Header />
-        <Outlet />
+        <Flex justify="center" align="center">
+          <Outlet />
+        </Flex>
       </Flex>
     </Container>
   );

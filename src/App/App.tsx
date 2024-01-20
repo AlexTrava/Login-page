@@ -6,7 +6,7 @@ import RootLayout from '../pages/RootLayout/RootLayout';
 import { RoutersPaths } from '../shared/types/enums';
 
 const MainPage = lazy(() => import('../pages/MainPage/MainPage'));
-const NotFound = lazy(() => import('../pages/NoFound/NoFound'));
+const NotFound = lazy(() => import('../pages/Error-404/Error-404'));
 const Admin = lazy(() => import('../pages/Admin/Admin'));
 const AuthPage = lazy(() => import('../pages/Auth/AuthPage'));
 

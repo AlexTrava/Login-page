@@ -1,4 +1,4 @@
-import { Box, Group } from '@mantine/core';
+import { Box, Flex, Group } from '@mantine/core';
 import { Link } from 'react-router-dom';
 
 import InputLanguage from '../../../components/InputLanguage/InputLanguage';
@@ -11,7 +11,7 @@ export const Header = () => {
     <Box pb={5}>
       <header className={classes.header}>
         <Group>
-          <Group display="flex" justify="flex-start">
+          <Flex display="flex" justify="">
             <Link to={RoutersPaths.ADMIN} className={classes.link}>
               admin
             </Link>
@@ -21,7 +21,7 @@ export const Header = () => {
             <Link to={RoutersPaths.AUTH} className={classes.link}>
               Auth
             </Link>
-          </Group>
+          </Flex>
           <InputLanguage />
           <SwitchTheme />
         </Group>

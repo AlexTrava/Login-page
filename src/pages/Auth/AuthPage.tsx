@@ -1,3 +1,3 @@
 export default function AuthPage() {
-  return <div>AuthPage</div>;
+  return <h1>AuthPage</h1>;
 }
