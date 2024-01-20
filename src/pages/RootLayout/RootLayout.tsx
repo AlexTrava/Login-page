@@ -1,4 +1,4 @@
-import { Center, Container } from '@mantine/core';
+import { Container, Flex } from '@mantine/core';
 import { Outlet } from 'react-router-dom';
 
 import { Header } from '../../features/components/Header/Header';
@@ -6,10 +6,10 @@ import { Header } from '../../features/components/Header/Header';
 const RootLayout = () => {
   return (
     <Container>
-      <Center maw={400} h={100}>
+      <Flex justify="" align="flex-start" direction="" wrap="wrap">
         <Header />
         <Outlet />
-      </Center>
+      </Flex>
     </Container>
   );
 };

@@ -19,5 +19,5 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <App />
       </MantineProvider>
     </BrowserRouter>
-  </React.StrictMode>,
+  </React.StrictMode>
 );
