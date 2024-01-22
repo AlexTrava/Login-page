@@ -2,14 +2,10 @@ import '@mantine/core/styles.css';
 
 import { Button, Flex, Image, Paper, Text, TextInput } from '@mantine/core';
 import type { UseFormReturnType } from '@mantine/form';
-import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { getPhoneNumber } from '@/redux/selectors';
-import { setFormType } from '@/redux/slices/authenticationFormSlice';
 import { signIn } from '@/redux/slices/authSlice';
-import { setPhoneNumber } from '@/redux/slices/curentUserSlice';
-import { useAppDispatch, useAppSelector } from '@/redux/store';
+import { useAppDispatch } from '@/redux/store';
 import type { FC, FormFields } from '@/types';
 
 import iconSteam from '../../../public/steam.svg';
@@ -21,14 +17,11 @@ interface LoginFormProps {
 
 const LoginForm: FC<LoginFormProps> = ({ form }) => {
   const dispatch = useAppDispatch();
-  const phoneNumber = useAppSelector(getPhoneNumber);
   const validFieldPhone = form.isValid('phoneNumber');
 
-  const handlerAuth = useCallback(async () => {
-    dispatch(setPhoneNumber(phoneNumber!));
-    await dispatch(signIn(phoneNumber!));
-    dispatch(setFormType('sms'));
-  }, [phoneNumber]);
+  const handlerAuth = () => {
+    dispatch(signIn());
+  };
   const { t } = useTranslation();
   return (
     <Paper withBorder shadow="md" p={30} radius="md" mt="xl">

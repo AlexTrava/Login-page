@@ -5,6 +5,8 @@ import { auth, db } from '@/firebase';
 import type { DocumentData, UserInfo } from '@/types';
 import errorHandler from '@/utils/errorsHandler';
 
+import type RootState from '../store';
+
 export enum Status {
   LOADING = 'loading',
   AUTH = 'auth',
@@ -36,17 +38,6 @@ export const getUser = createAsyncThunk<UserInfo[], undefined, { rejectValue: st
   },
 );
 
-export const setUser = createAsyncThunk<undefined, UserInfo, { rejectValue: string }>(
-  'firestore/setUser',
-  async (infoUser, { rejectWithValue }) => {
-    try {
-      await addDoc(collection(db, 'users'), infoUser);
-    } catch (error) {
-      return rejectWithValue(errorHandler(error, 'setUser Error'));
-    }
-  },
-);
-
 export const isTakenDisplayName = createAsyncThunk<
   boolean,
   string,
@@ -59,6 +50,18 @@ export const isTakenDisplayName = createAsyncThunk<
     return querySnapshot.empty;
   } catch (error) {
     return rejectWithValue(errorHandler(error, 'isTakenDisplayName Error'));
+  }
+});
+
+export const setUser = createAsyncThunk<
+  undefined,
+  UserInfo,
+  { rejectValue: string; state: RootState }
+>('firestore/setUser', async (infoUser, { rejectWithValue }) => {
+  try {
+    await addDoc(collection(db, 'users'), infoUser);
+  } catch (error) {
+    return rejectWithValue(errorHandler(error, 'setUser Error'));
   }
 });
 

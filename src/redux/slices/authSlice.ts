@@ -5,6 +5,9 @@ import { auth } from '@/firebase';
 import type { ConfirmationResult } from '@/types';
 import errorHandler from '@/utils/errorsHandler';
 
+import type RootState from '../store';
+import { setCurrentStepForm } from './authenticationFormSlice';
+
 export enum Status {
   LOADING = 'loading',
   SUCCES = 'succes',
@@ -24,11 +27,13 @@ const setupRecaptcha = (phoneNumber: string) => {
 };
 export const signIn = createAsyncThunk<
   ConfirmationResult,
-  string,
-  { rejectValue: string }
->('auth/signPhoneNumber', async (phoneNumber: string, { rejectWithValue }) => {
+  undefined,
+  { rejectValue: string; state: RootState }
+>('auth/signPhoneNumber', async (_, { rejectWithValue, dispatch, getState }) => {
   try {
+    const phoneNumber = getState().curentUserSlice.phoneNumber;
     const recaptcha = await setupRecaptcha(phoneNumber);
+    dispatch(setCurrentStepForm('sms'));
     return recaptcha;
   } catch (error) {
     return rejectWithValue(errorHandler(error, 'signIn Error'));

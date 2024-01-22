@@ -2,15 +2,15 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 
 type CurrentUser = {
-  phoneNumber: string | null;
-  smsCode: string | null;
-  displayName: string | null;
+  phoneNumber: string;
+  smsCode: string;
+  displayName: string;
 };
 
 const initialState = {
-  phoneNumber: null,
-  smsCode: null,
-  displayName: null,
+  phoneNumber: '',
+  smsCode: '',
+  displayName: '',
 } as CurrentUser;
 
 const curentUserSlice = createSlice({

@@ -5,7 +5,7 @@ import SuccessCheckCode from '@components/SuccessCheckCode/SuccessCheckCode';
 import { Container } from '@mantine/core';
 import { useForm } from '@mantine/form';
 
-import { getFormTypeState } from '@/redux/selectors';
+import { getStepFormState } from '@/redux/selectors';
 import {
   setDisplayName,
   setPhoneNumber,
@@ -15,7 +15,7 @@ import { useAppDispatch, useAppSelector } from '@/redux/store';
 import type { FormFields } from '@/types';
 
 const AuthenticationForm = () => {
-  const formType = useAppSelector(getFormTypeState);
+  const stepForm = useAppSelector(getStepFormState);
   const dispatch = useAppDispatch();
 
   const form = useForm<FormFields>({
@@ -39,25 +39,22 @@ const AuthenticationForm = () => {
   dispatch(setSmsCode(form.values.smsCode));
   dispatch(setDisplayName(form.values.nickName));
 
-  let renderForm;
-  switch (formType) {
-    case 'login':
-      renderForm = <LoginForm form={form} />;
-      break;
-    case 'sms':
-      renderForm = <CheckSmsCodeForm form={form} />;
-      break;
-    case 'auth':
-      renderForm = <SuccessCheckCode />;
-      break;
-    case 'nick':
-      renderForm = <NickNameForm form={form} />;
-      break;
-  }
+  const renderForm = (stepForm: string) => {
+    switch (stepForm) {
+      case 'login':
+        return <LoginForm form={form} />;
+      case 'sms':
+        return <CheckSmsCodeForm form={form} />;
+      case 'auth':
+        return <SuccessCheckCode />;
+      case 'nick':
+        return <NickNameForm form={form} />;
+    }
+  };
 
   return (
     <Container size={460} my={30} ta="center" mt={250}>
-      <form onSubmit={form.onSubmit((values) => console.log(values))}>{renderForm}</form>
+      <form onSubmit={form.onSubmit(() => {})}>{renderForm(stepForm)}</form>
     </Container>
   );
 };

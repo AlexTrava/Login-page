@@ -1,6 +1,6 @@
 import { notifications } from '@mantine/notifications';
 
-export const errorHandler = (error: unknown, title: string): string => {
+const errorHandler = (error: unknown, title: string): string => {
   const color = 'red';
   return notifications.show({
     id: 'error-notifications',
