@@ -1,17 +1,15 @@
-import { Button, Center, Container } from '@mantine/core';
-import { Link } from 'react-router-dom';
+import { Container, Flex } from '@mantine/core';
 
-import styles from './AuthPage.module.css';
+import { AuthUiForm } from './ui/auth-ui-form';
 
 export default function AuthPage() {
   return (
     <Container>
-      <Center display={'flex'} className={styles.wrapper}>
-        <Button component={Link} to="/">
-          Click here to go back to root page.
-        </Button>
-        <h1>AuthPage</h1>
-      </Center>
+      <Flex h="100%" align="center">
+        <Container size="xs">
+          <AuthUiForm />
+        </Container>
+      </Flex>
     </Container>
   );
 }
