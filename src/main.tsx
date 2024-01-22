@@ -14,10 +14,10 @@ const theme = createTheme({
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <BrowserRouter>
-      <MantineProvider theme={theme}>
+    <MantineProvider theme={theme}>
+      <BrowserRouter>
         <App />
-      </MantineProvider>
-    </BrowserRouter>
+      </BrowserRouter>
+    </MantineProvider>
   </React.StrictMode>
 );
