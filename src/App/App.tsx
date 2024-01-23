@@ -1,28 +1,14 @@
+import { createTheme, MantineProvider } from '@mantine/core';
 import type react from 'react';
-import { lazy, Suspense, useEffect, useState } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 
-import { Spiner } from '../components/Loader/Loader';
-import NoAccess from '../components/NoAccess/NoAccess';
-import RootLayout from '../pages/RootLayout/RootLayout';
-import { RoutersPaths } from '../shared/types/enums';
+import RootRouter from './RootRouter';
 
-const MainPage = lazy(() => import('../pages/MainPage/MainPage'));
-const NotFound = lazy(() => import('../pages/Error-404/Error-404'));
-const AdminPage = lazy(() => import('../pages/AdminPage/AdminPage'));
-const AuthPage = lazy(() => import('../pages/Auth/AuthPage'));
-const ProfilePage = lazy(() => import('../pages/ProfilePage/ProfilePage'));
+const theme = createTheme({
+  /** Put your mantine theme override here */
+});
 
 const App: react.FC = () => {
-  const [isAllow, setIsAllow] = useState(false);
-
-  const isAdmin = true;
-
-  useEffect(() => {
-    if (isAdmin) {
-      setIsAllow(true);
-    }
-  }, [isAdmin]);
   return (
     <Suspense fallback={<Spiner />}>
       <Routes>
