@@ -10,11 +10,17 @@ const theme = createTheme({
 
 const App: react.FC = () => {
   return (
-    <MantineProvider theme={theme}>
-      <BrowserRouter>
-        <RootRouter />
-      </BrowserRouter>
-    </MantineProvider>
+    <Suspense fallback={<Spiner />}>
+      <Routes>
+        <Route path={RoutersPaths.MAIN} element={<RootLayout />}>
+          <Route index element={<MainPage />} />
+          <Route path={RoutersPaths.AUTH} element={<AuthPage />} />
+          <Route path={RoutersPaths.ADMIN} element={isAllow ? <AdminPage /> : <NoAccess />} />
+          <Route path={RoutersPaths.PROFILE} element={<ProfilePage />} />
+        </Route>
+        <Route path={RoutersPaths.NOFOUND} element={<NotFound />} />
+      </Routes>
+    </Suspense>
   );
 };
 
