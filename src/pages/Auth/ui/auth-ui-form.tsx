@@ -13,7 +13,6 @@ import {
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { upperFirst, useToggle } from '@mantine/hooks';
-import { Link } from 'react-router-dom';
 
 import { useAuth } from '../data-access';
 import { GitHubButton, GoogleButton } from './social-buttons';
@@ -38,9 +37,7 @@ export function AuthUiForm(props: PaperProps) {
   return (
     <Paper radius="md" p="xl" withBorder {...props}>
       <Stack>
-        <Text size="lg" weight={500}>
-          Welcome to Mantine Admin, {type} with
-        </Text>
+        <Text size="lg">Welcome to Mantine Admin, {type} with</Text>
       </Stack>
 
       <Group grow mb="md" mt="md">
@@ -93,7 +90,7 @@ export function AuthUiForm(props: PaperProps) {
           )}
         </Stack>
 
-        <Group position="apart" mt="xl">
+        <Group mt="xl">
           <Anchor
             component="button"
             type="button"
@@ -103,9 +100,6 @@ export function AuthUiForm(props: PaperProps) {
             {type === 'register'
               ? 'Already have an account? Login'
               : "Don't have an account? Register"}
-          </Anchor>
-          <Anchor component={Link} to="/">
-            root page.
           </Anchor>
           <Button type="submit">{upperFirst(type)}</Button>
         </Group>
