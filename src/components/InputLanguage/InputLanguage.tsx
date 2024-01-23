@@ -3,7 +3,7 @@ import type { ChangeEvent } from 'react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import language from '../../../public/language.svg';
+// import language from '../../Assets/language';
 
 const InputLanguage = () => {
   const [value, setValue] = useState<string>('');
@@ -21,7 +21,7 @@ const InputLanguage = () => {
       onChange={handleLangSwitch}
       data={['EN', 'RU']}
       mt="md"
-      leftSection={<Image h={20} w={20} src={language} />}
+      leftSection={<Image h={20} w={20} />}
     />
   );
 };

@@ -1,5 +1,5 @@
 {
-  "sign": "Sign in",
+"login": { "sign": "Sign in",
   "yourPhone": "Your phone",
   "enterPhone": "Enter phone number",
   "sendSms": "Send SMS with code",
@@ -8,5 +8,20 @@
   "enterCode": "Enter code",
   "registration": "Successs registarion.",
   "useAllFunction": "Now u can use all function this web site!",
-  "backHomeButton": "Get back to home page"
+  "backHomeButton": "Get back to home page"},
+  "header": {
+    "home": "Home",
+    "contact": "Contact",
+    "auth": "Auth",
+    "features": "Features",
+    "learn": "Learn",
+    "Login": "Login",
+    "LogOut": "Log out",
+    "Auth": "Auth",
+    "Contacts": "Contacts",
+    "ViewAll": "View all",
+    "ourWorks": "Our Works",
+    "admin": "Admin",
+    "profile": "profile"
+  }
 }
