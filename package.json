@@ -13,7 +13,6 @@
   },
   "dependencies": {
     "@firebase/storage": "^0.12.0",
-    "@mantine/carousel": "^7.3.0",
     "@mantine/code-highlight": "^7.3.0",
     "@mantine/core": "^7.3.0",
     "@mantine/form": "^7.3.0",
@@ -22,7 +21,6 @@
     "@mantine/notifications": "^7.3.0",
     "@mantinex/dev-icons": "^1.0.1",
     "@mantinex/mantine-logo": "^1.0.1",
-    "@mui/material": "^5.14.18",
     "@reduxjs/toolkit": "^1.9.7",
     "@tabler/icons-react": "^2.44.0",
     "axios": "^1.6.2",
