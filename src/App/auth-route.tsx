@@ -12,7 +12,6 @@ export function AuthRoute({ redirectTo }: { redirectTo: string }) {
   const location = useLocation();
 
   setTimeout(() => {
-    console.log('setTimeout');
     loading = false;
   }, 1000);
 

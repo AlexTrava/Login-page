@@ -36,10 +36,6 @@ export function AuthUiForm(props: PaperProps) {
 
   return (
     <Paper radius="md" p="xl" withBorder {...props}>
-      <Stack>
-        <Text size="lg">Welcome to Mantine Admin, {type} with</Text>
-      </Stack>
-
       <Group grow mb="md" mt="md">
         <GoogleButton onClick={() => login({ username: '', password: '' })} radius="xl">
           Google
@@ -100,6 +96,9 @@ export function AuthUiForm(props: PaperProps) {
             {type === 'register'
               ? 'Already have an account? Login'
               : "Don't have an account? Register"}
+          </Anchor>
+          <Anchor component={Link} to="/">
+            root page.
           </Anchor>
           <Button type="submit">{upperFirst(type)}</Button>
         </Group>
