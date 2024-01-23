@@ -3,7 +3,8 @@ import '@mantine/core/styles.css';
 import { Center, Container } from '@mantine/core';
 import type { FC } from 'react';
 
-import { Header } from '../../features/components/Header/Header';
+import { Header } from '@/features/components/Header/Header';
+
 import styles from './Main.module.css';
 
 const MainPage: FC = () => {
