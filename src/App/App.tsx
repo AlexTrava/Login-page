@@ -29,10 +29,7 @@ const App: react.FC = () => {
         <Route path={RoutersPaths.MAIN} element={<RootLayout />}>
           <Route index element={<MainPage />} />
           <Route path={RoutersPaths.AUTH} element={<AuthPage />} />
-          <Route
-            path={RoutersPaths.ADMIN}
-            element={isAllow ? <AdminPage /> : <NoAccess />}
-          />
+          <Route path={RoutersPaths.ADMIN} element={isAllow ? <AdminPage /> : <NoAccess />} />
           <Route path={RoutersPaths.PROFILE} element={<ProfilePage />} />
         </Route>
         <Route path={RoutersPaths.NOFOUND} element={<NotFound />} />
