@@ -9,7 +9,7 @@ import type { LanguagePickerProps, LanPickerProps } from './types';
 
 const data = [
   { label: 'En', image: images.english },
-  { label: 'ua', image: images.ukraine2 }
+  { label: 'ru', image: images.french }
 ];
 
 const LanguagePicker = ({ type }: LanguagePickerProps) => {
