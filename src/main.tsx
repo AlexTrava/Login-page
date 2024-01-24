@@ -1,5 +1,5 @@
-import './i18n';
-import './firebase';
+import '@/shared/config/i18n/i18n.ts';
+import '@/integations/firebase.ts';
 
 import { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
