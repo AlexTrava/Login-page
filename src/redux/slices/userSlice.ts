@@ -1,10 +1,7 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 
-type User = {
-  phoneNumber: string;
-  verificationId: string;
-};
+import type { User } from '@/shared/types/Types';
 
 const initialState = {
   phoneNumber: '',

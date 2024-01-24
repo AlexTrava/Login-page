@@ -5,3 +5,9 @@ export enum RoutersPaths {
   AUTH = '/login',
   NOFOUND = '*'
 }
+
+export enum Status {
+  LOADING = 'loading',
+  SUCCES = 'succes',
+  ERROR = 'error'
+}

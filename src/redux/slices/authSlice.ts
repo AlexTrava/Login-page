@@ -2,18 +2,9 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import type { ConfirmationResult } from 'firebase/auth';
 import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 
-import { auth } from '../../firebase';
-
-export enum Status {
-  LOADING = 'loading',
-  SUCCES = 'succes',
-  ERROR = 'error'
-}
-
-type StateAuth = {
-  status: Status;
-  captchaFetch: ConfirmationResult;
-};
+import { auth } from '@/integations/firebase';
+import { Status } from '@/shared/types/enums';
+import type { StateAuth } from '@/shared/types/Types';
 
 const setupRecaptcha = (phoneNumber: string) => {
   const recapthca = new RecaptchaVerifier(auth, 'sign-in-button', {
@@ -21,6 +12,7 @@ const setupRecaptcha = (phoneNumber: string) => {
   });
   return signInWithPhoneNumber(auth, phoneNumber, recapthca);
 };
+
 export const signIn = createAsyncThunk<ConfirmationResult, string, { rejectValue: string }>(
   'auth/signPhoneNumber',
   async (phoneNumber: string, { rejectWithValue }) => {
