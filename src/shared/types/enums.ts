@@ -1,7 +1,7 @@
 export enum RoutersPaths {
   MAIN = '/',
   ADMIN = '/admin',
-  PROFILE = '/admin/:id',
+  USERBYID = '/admin/:id',
   AUTH = '/login',
   NOFOUND = '*'
 }
