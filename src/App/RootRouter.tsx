@@ -7,7 +7,7 @@ import { Layout } from './layout';
 
 const MainPage = lazy(() => import('../pages/MainPage/MainPage'));
 const AdminPage = lazy(() => import('../pages/AdminPage/AdminPage'));
-const AuthPage = lazy(() => import('../pages/Auth/AuthPage'));
+const AuthPage = lazy(() => import('../pages/AuthPage/AuthPage'));
 const NotFound = lazy(() => import('../pages/Error-404/Error-404'));
 const ProfilePage = lazy(() => import('../pages/ProfilePage/ProfilePage'));
 
