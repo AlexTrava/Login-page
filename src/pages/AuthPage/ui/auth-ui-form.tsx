@@ -8,11 +8,11 @@ import {
   Paper,
   PasswordInput,
   Stack,
-  Text,
   TextInput
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { upperFirst, useToggle } from '@mantine/hooks';
+import { Link } from 'react-router-dom';
 
 import { useAuth } from '../data-access';
 import { GitHubButton, GoogleButton } from './social-buttons';

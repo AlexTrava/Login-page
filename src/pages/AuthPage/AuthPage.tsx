@@ -9,10 +9,8 @@ export default function AuthPage() {
     <>
       <Header />
       <Container>
-        <Flex h="100%" align="center" pt={100}>
-          <Container size="xs">
-            <AuthUiForm />
-          </Container>
+        <Flex h="100%">
+          <AuthUiForm />
         </Flex>
       </Container>
     </>
